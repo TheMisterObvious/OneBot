@@ -29,7 +29,7 @@ client.on('message', async message => {
     var command = message.content.toLowerCase().slice(settings.prefix.length).split(' ')[0];
     var args = message.content.split(' ').slice(1);
  
-    if (!message.content.startsWith(tokens.prefix) || message.author.bot) return;
+    if (!message.content.startsWith(settings.prefix) || message.author.bot) return;
     if (command === 'balance') {
       var output = await eco.FetchBalance(message.author.id)
       message.channel.send(`Hey ${message.author.tag}! You own ${output.balance} coins.`);
