@@ -12,9 +12,8 @@ class SayCommand extends Commando.Command {
   }
 
   async run(message, args) {
-    // Delete user's comment, replace it with bot's.
     message.delete();
-    message.say(args);
+    message.say("*"+ args +"*");
   }
 }
 
