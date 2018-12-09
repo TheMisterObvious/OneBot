@@ -13,7 +13,7 @@ client.registry
   .registerDefaults()
   .registerCommandsIn(__dirname+"/commands");
 
-var prefix = "o!"
+var prefix = "o!";
 
 client.on("ready", () => {
 var memberCount = client.users.size;
