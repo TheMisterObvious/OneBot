@@ -11,7 +11,7 @@ const admin = "338339839617269762, 414878235382513674";
 client.on("ready", () => {
 var memberCount = client.users.size;
 var servercount = client.guilds.size;
-    client.user.setActivity('o!help |'+ servercount +' serveurs')
+    client.user.setActivity('o!help | '+ servercount +' serveurs')
     client.user.setAvatar('./avatar.jpg')
     var servers = client.guilds.array().map(g => g.name).join(',');
     console.log("--------------------------------------");
@@ -23,11 +23,9 @@ console.log("[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les éveneme
 client.on("message", message => {
     if (message.content.startsWith(prefix +'setmoney')) {
         if (message.author.id !== admin) {
-            var ecosize = message.content.lenght;
             var usereco = message.mentions.members.first();
             var etape1 = message.content.substring(11);
-            var moneyset = message.content.substring(usereco);
-            console.log(ecosize);
+            var moneyset = etape1.substring(0, 21);
             console.log(etape1);
             console.log(moneyset);
         }
