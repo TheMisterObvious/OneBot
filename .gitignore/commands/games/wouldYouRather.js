@@ -12,10 +12,10 @@ module.exports = class wouldYouRather extends Command {
 		});
 	};
 
-    async (Bastion, message) => {
+exports.exec = async (OneBot, message) => {
     await message.channel.send({
     embed: {
-      color: Bastion.colors.BLUE,
+      color: OneBot.colors.BLUE,
       description: question[Math.floor(Math.random() * question.length)]
     }
   });
