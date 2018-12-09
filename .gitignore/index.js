@@ -24,9 +24,8 @@ client.on("message", message => {
     if (message.content.startsWith(prefix +'setmoney')) {
         if (message.author.id !== admin) {
             var usereco = message.mentions.members.first();
-            var etape1 = message.content.substring(11);
+            var etape1 = message.content.substring(usereco);
             var moneyset = message.content.substring(0, usereco);
-            console.log(usereco);
             console.log(etape1);
             console.log(moneyset);
         }
