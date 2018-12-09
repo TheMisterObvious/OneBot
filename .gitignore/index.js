@@ -11,7 +11,7 @@ const admin = "338339839617269762, 414878235382513674";
 client.on("ready", () => {
 var memberCount = client.users.size;
 var servercount = client.guilds.size;
-    client.user.setActivity('o!help')
+    client.user.setActivity('o!help |'+ servercount +' serveurs')
     client.user.setAvatar('./avatar.jpg')
     var servers = client.guilds.array().map(g => g.name).join(',');
     console.log("--------------------------------------");
@@ -26,7 +26,7 @@ client.on("message", message => {
             var ecosize = message.content.size;
             var usereco = message.mentions.members.first();
             var etape1 = message.content.substring(11);
-            var moneyset = etape1.content.substring(usereco);
+            var moneyset = message.content.substring(usereco);
             console.log(ecosize);
             console.log(etape1);
             console.log(moneyset);
