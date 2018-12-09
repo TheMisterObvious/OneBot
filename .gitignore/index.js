@@ -25,7 +25,7 @@ client.on("message", message => {
         if (message.author.id !== admin) {
             var usereco = message.mentions.members.first();
             var etape1 = message.content.substring(11);
-            var moneyset = etape1.substring(0, 21);
+            var moneyset = etape1.substring(22);
             console.log(etape1);
             console.log(moneyset);
         }
