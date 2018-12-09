@@ -25,13 +25,45 @@ client.on("message", message => {
         if (message.author.id !== admin) {
             var setuser = message.mentions.members.first();
             var etape1 = message.content.substring(11);
-            var moneyset = etape1.substring(22);
-            console.log(setuser.id);
-            console.log(moneyset);
+            var setmoney = etape1.substring(22);
+            eco.SetBalance(setuser.id, setmoney);
         }
     }
 });
-        
+
+client.on("message", message => {
+    if (message.content.startsWith(prefix +'addmoney')) {
+        if (message.author.id !== admin) {
+            var adduser = message.mentions.members.first();
+            var etape2 = message.content.substring(11);
+            var addmoney = etape2.substring(22);
+            eco.AddToBalance(adduser.id, addmoney);
+        }
+    }
+});
+
+client.on("message", message => {
+    if (message.content.startsWith(prefix +'submoney')) {
+        if (message.author.id !== admin) {
+            var subuser = message.mentions.members.first();
+            var etape3 = message.content.substring(11);
+            var submoney = etape3.substring(22);
+            eco.SubstractFromBalance(subuser.id, submoney);
+        }
+    }
+});
+
+client.on("message", message => {
+    if (message.content.startsWith(prefix +'balance')) {
+        if (message.mentions.members.first().lenght === 0) {
+            var balanceme = message.author.id;
+            eco.FetchBalance(balanceme);
+        } else if (!message.mentions.members.first().leght === 0) {
+            var balanceother = message.mentions.members.first();
+            eco.FetchBalance(balanceother.id);
+        }
+    }
+});
 
 //Gban
 
