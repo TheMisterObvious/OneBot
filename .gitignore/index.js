@@ -14,7 +14,12 @@ client.registry
     ['admin', 'Les commandes d\'aministration du bot'],
     ['adminbot', 'Les commandes pour les admin du bot']
   ])
-  .registerDefaults()
+  .registerDefaultCommands({
+		      help: false,
+		      ping: false,
+		      prefix: false,
+		      commandState: false
+  })
   .registerCommandsIn(__dirname+"/commands");
 
 client.on("ready", () => {
