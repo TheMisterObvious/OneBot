@@ -55,8 +55,6 @@ bot.guilds.forEach(serveur => {
             });
         });
     }, time);
-});
-
 
 bot.on("message", async message => {
        if(message.content.indexOf(prefix !== 0)) return;
