@@ -58,9 +58,11 @@ client.on("message", message => {
         if (message.content === prefix +"balance") {
             var balanceme = message.author.id;
             eco.FetchBalance(balanceme);
+            message.channel.send("Hey ${message.author.tag} ! Vous avez ${output.balance} Berrys.");
         } else if (message.content.startsWith(prefix +"balance <@")) {
             var balanceother = message.mentions.members.first();
             eco.FetchBalance(balanceother.id);
+            message.channel.send("Hey ${message.author.tag} ! "+ balanceother +" à ${output.balance} Berrys.");
         }
     }
 });
