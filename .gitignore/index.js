@@ -12,7 +12,7 @@ client.on("ready", () => {
 var memberCount = client.users.size;
 var servercount = client.guilds.size;
     client.user.setActivity('o!help | '+ servercount +' serveurs')
-    client.user.setAvatar('./avatar.jpg')
+    //client.user.setAvatar('./avatar.jpg')
     var servers = client.guilds.array().map(g => g.name).join(',');
     console.log("--------------------------------------");
 console.log("[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les évenement sont après ! :)  \n[!]Les préfix actuelle: o! \n[!]Mentions = <@521330981144100864> \n[!]Nombre de membres: " + memberCount + "\n[!]Nombre de serveurs: " + servercount);
@@ -57,9 +57,9 @@ client.on('message', async message => {
     eco.Leaderboard({
       limit: 3
     }).then(async users => { //make sure it is async
-      var firstplace = await client.fetchUser(users[0].userid) //Searches for the user object in discord for first place
-      var secondplace = await client.fetchUser(users[1].userid) //Searches for the user object in discord for second place
-      var thirdplace = await client.fetchUser(users[2].userid) //Searches for the user object in discord for third place
+      var firstplace = await client.fetchUser(users[0].userid) 
+      var secondplace = await client.fetchUser(users[1].userid) 
+      var thirdplace = await client.fetchUser(users[2].userid) 
       message.channel.send(`My leaderboard:
  
 1 - ${firstplace.tag} : ${users[0].balance}
