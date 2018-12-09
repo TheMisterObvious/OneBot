@@ -7,7 +7,7 @@ const client = new Commando.Client({
 client.registry
   .registerGroups([
     ['games', 'Les jeux du bot'],
-    ['fun', 'Les commands fun du bot],
+    ['fun', 'Les commands fun du bot'],
     ['util', 'Les commandes utiles du bot'],
     ['search', 'Les commandes de recherche du bot'],
     ['mod', 'Les commandes du modération du bot'],
