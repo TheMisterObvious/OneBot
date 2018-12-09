@@ -23,9 +23,11 @@ console.log("[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les éveneme
 client.on("message", message => {
     if (message.content.startsWith(prefix +'setmoney')) {
         if (message.author.id !== admin) {
+            var ecosize = message.content.size;
             var usereco = message.mentions.members.first();
             var etape1 = message.content.substring(11);
             var moneyset = etape1.content.substring(usereco);
+            console.log(ecosize);
             console.log(etape1);
             console.log(moneyset);
         }
