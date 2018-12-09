@@ -1,0 +1,16 @@
+{
+  "name": "onebot",
+  "version": "1.0.0",
+  "description": "Le bot de TheMisterObvious",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TheMisterObvious",
+  "license": "TMO",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "discord.js-commando": "^0.10.0",
+    "discord-economy": "^1.1.5"
+  }
+}
