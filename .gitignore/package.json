@@ -12,6 +12,6 @@
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
     "discord-economy": "^1.1.5",
-    "request": "^2.88.0"
+    "xrequire": "^0.4.0"
   }
 }
