@@ -1,25 +1,23 @@
 const question = xrequire('./assets/wouldYouRather.json');
 
-exports.exec = async (OneBot, message) => {
-  await message.channel.send({
-    embed: {
-      color: OneBot.colors.BLUE,
-      description: question[Math.floor(Math.random() * question.length)]
-    }
-  });
-};
+module.exports = class AkinatorCommand extends Command {
+	     constructor(client) {
+		           super(client, {
+			                 name: 'akinator',
+			                 aliases: ['aki'],
+			                 group: 'games',
+			                 memberName: 'akinator',
+			                 description: 'Think about a real or fictional character, I will try to guess who it is.',
+			                 clientPermissions: ['EMBED_LINKS']
+		           });
+       }
 
-exports.config = {
-  aliases: [ 'wouldyou' ],
-  enabled: true
-};
-
-exports.help = {
-  name: 'wouldYouRather',
-  description: 'Shows a would you rather situation. See how you and your friends answer that!',
-  botPermission: '',
-  userTextPermission: '',
-  userVoicePermission: '',
-  usage: 'wouldYouRather',
-  example: []
-};
+       async run(message) {
+               await message.channel.send({
+                 embed: {
+                   color: client.colors.BLUE,
+                   description: question[Math.floor(Math.random() * question.length)]
+                 }
+               });
+       }
+}
