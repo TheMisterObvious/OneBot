@@ -29,7 +29,7 @@ console.log("[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les éveneme
 //Gban
 
 const Discord = require("discord.js");
-const client = new Discord.Client();
+const bot = new Discord.Client();
 const quickdb = require('quick.db');
 const blacklist = new quickdb.table('blacklist');
 
@@ -42,7 +42,7 @@ setInterval(function(){
        var membresBannis = [];
        var blacklisted = blacklist.get('blacklist.users');
         
-client.guilds.forEach(serveur => {
+bot.guilds.forEach(serveur => {
        serveur.members.forEach(membre => {
             blacklisted.forEach(user =>{
                     if(membre.id === user){
@@ -58,7 +58,7 @@ client.guilds.forEach(serveur => {
 });
 
 
-client.on("message", async message => {
+bot.on("message", async message => {
        if(message.content.indexOf(prefix !== 0)) return;
   
        const args = message.content.slice(prefix.length).trim().split(/ +/g);
@@ -66,15 +66,11 @@ client.on("message", async message => {
        
        if(command === 'gban'){
             if(message.author.id !== admin) return message.reply('permissions insuffisantes');
-                    
             var to_add = args[0];
-         
             if(!to_add) return message.reply('entre une ID à blacklist !');
             if(isNaN(to_add)) return message.reply('entre une ID valide !');
-        
             var validUser = false;
-        
-            client.fetchUser(to_add).then(the_user =>{
+            bot.fetchUser(to_add).then(the_user =>{
                  validUser = the_user;
             }).catch(err => {
             return message.reply('aucun utilisateur avec une telle ID trouvé !');
@@ -92,7 +88,7 @@ client.on("message", async message => {
         if(!to_remove) return message.reply('entre une ID à unblacklist !');
         if(isNaN(to_remove)) return message.reply('entre une ID valide !');
         var validUser = false;
-        client.fetchUser(to_remove).then(the_user =>{
+        bot.fetchUser(to_remove).then(the_user =>{
             validUser = the_user;
         }).catch(err => {
             return message.reply('aucun utilisateur avec une telle ID trouvé !');
