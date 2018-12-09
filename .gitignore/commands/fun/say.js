@@ -4,9 +4,9 @@ class SayCommand extends Commando.Command {
   constructor(client) {
     super(client, {
       name: 'say',
-      group: 'chattools',
+      group: 'fun',
       memberName: 'say',
-      description: 'Simon says.',
+      description: 'Faire parle le bot.',
       format: 'text',
     });
   }
