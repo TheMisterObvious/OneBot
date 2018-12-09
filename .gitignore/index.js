@@ -20,6 +20,7 @@ console.log("[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les éveneme
 
 //Economy
 
+/*
 client.on('message', async message => {
  
     const settings = {
@@ -125,6 +126,7 @@ You now own :money_with_wings: ${output.balance}`)
 }
  
 });
+*/
 
 //Gban
 
