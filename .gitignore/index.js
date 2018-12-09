@@ -55,10 +55,10 @@ client.on("message", message => {
 
 client.on("message", message => {
     if (message.content.startsWith(prefix +'balance')) {
-        if (message.mentions.members.first().lenght === 0) {
+        if (message.content === prefix +"balance") {
             var balanceme = message.author.id;
             eco.FetchBalance(balanceme);
-        } else if (!message.mentions.members.first().leght === 0) {
+        } else if (message.content.startsWith(prefix +"balance <@")) {
             var balanceother = message.mentions.members.first();
             eco.FetchBalance(balanceother.id);
         }
