@@ -20,7 +20,7 @@ client.registry
 client.on("ready", () => {
 var memberCount = client.users.size;
 var servercount = client.guilds.size;
-    client.user.setActivity('/help')
+    client.user.setActivity('o!help')
     client.user.setAvatar('./avatar.jpg')
     var servers = client.guilds.array().map(g => g.name).join(',');
     console.log("--------------------------------------");
