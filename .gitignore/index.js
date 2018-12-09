@@ -2,10 +2,11 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const quickdb = require('quick.db');
 const blacklist = new quickdb.table('blacklist');
+const eco = require("discord-economy);
 
 const prefix = "o!"; 
 const time = "1000"; 
-const admin = "338339839617269762";
+const admin = "338339839617269762, 414878235382513674";
 
 client.on("ready", () => {
 var memberCount = client.users.size;
@@ -17,8 +18,22 @@ var servercount = client.guilds.size;
 console.log("[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les évenement sont après ! :)  \n[!]Les préfix actuelle: o! \n[!]Mentions = <@521330981144100864> \n[!]Nombre de membres: " + memberCount + "\n[!]Nombre de serveurs: " + servercount);
 });
 
+//Economy
+
+client.on("message", message => {
+    if (message.content.startsWith(prefix +'setmoney')) {
+        if (message.author.id !== admin) {
+            var usereco = message.mentions.members.first();
+            var moneyset = message.content.substring(11, usereco);
+            console.log(moneyset);
+        }
+    }
+});
+        
+
 //Gban
 
+/*
 setInterval(function(){
        var nombreMembresBannis = 0;
        var membresBannis = [];
@@ -87,5 +102,6 @@ client.on("message", async message => {
         }
     }
 });
+*/
 
 client.login(process.env.TOKEN);
