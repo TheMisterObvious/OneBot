@@ -19,4 +19,5 @@ module.exports = class wouldYouRather extends Command {
                   description: question[Math.floor(Math.random() * question.length)]
                 }
              });
-};
+        }
+}
