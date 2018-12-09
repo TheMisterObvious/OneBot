@@ -26,7 +26,7 @@ client.on("message", message => {
             var usereco = message.mentions.members.first();
             var etape1 = message.content.substring(11);
             var moneyset = message.content.substring(etape1, usereco);
-            console.log(moneyset);
+            console.log(etape1);
         }
     }
 });
