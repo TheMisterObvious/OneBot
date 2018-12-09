@@ -10,6 +10,7 @@ module.exports = class wouldYouRather extends Command {
 			description: 'Montre une situation que vous préférez. Voyez comment vous et vos amis répondez à cette question !',
 			clientPermissions: ['EMBED_LINKS']
 		});
+	});
 
     async (Bastion, message) => {
     await message.channel.send({
