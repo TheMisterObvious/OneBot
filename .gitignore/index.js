@@ -23,4 +23,4 @@ var servercount = client.guilds.size;
 console.log('[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les évenement sont après ! :)  \n[!]Les préfix actuelle:  ' + prefix + "\n[!]Mentions = " + mention + "\n[!]Nombre de membres: " + memberCount + "\n[!]Nombre de serveurs: " + servercount);
 });
 
-client.login(cprocess.env.TOKEN);
+client.login(process.env.TOKEN);
