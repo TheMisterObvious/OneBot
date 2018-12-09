@@ -7,8 +7,12 @@ const client = new Commando.Client({
 
 client.registry
   .registerGroups([
-    ['fun', 'Fun'],
-    ['chattools', 'Chat Tools']
+    ['games', 'Les jeux du bot'],
+    ['util', 'Les commandes utiles du bot'],
+    ['search', 'Les commandes de recherche du bot'],
+    ['mod', 'Les commandes du modération du bot'],
+    ['admin', 'Les commandes d\'aministration du bot'],
+    ['adminbot', 'Les commandes pour les admin du bot']
   ])
   .registerDefaults()
   .registerCommandsIn(__dirname+"/commands");
