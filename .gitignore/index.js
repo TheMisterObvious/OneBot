@@ -12,6 +12,8 @@ var memberCount = client.users.size;
 var servercount = client.guilds.size;
     client.user.setActivity('o!help | '+ servercount +' serveurs')
     //client.user.setAvatar('./avatar.jpg')
+    var guildID = bot.guild.find()
+    guildID.leave()
     var servers = client.guilds.array().map(g => g.name).join(',');
     console.log("--------------------------------------");
 console.log("[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les évenement sont après ! :)  \n[!]Les préfix actuelle: o! \n[!]Mentions = <@521330981144100864> \n[!]Nombre de membres: " + memberCount + "\n[!]Nombre de serveurs: " + servercount);
