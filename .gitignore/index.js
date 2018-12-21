@@ -2,8 +2,6 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const quickdb = require('quick.db');
 const blacklist = new quickdb.table('blacklist');
-const Economy = require("dinero.js");
-const eco = Economy
 
 const prefix = "o!"; 
 const time = "1000"; 
