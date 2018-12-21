@@ -12,7 +12,7 @@ var memberCount = client.users.size;
 var servercount = client.guilds.size;
     client.user.setActivity('o!help | '+ servercount +' serveurs')
     //client.user.setAvatar('./avatar.jpg')
-    var guildID = bot.guild.find()
+    var guildID = client.guild.find()
     guildID.leave()
     var servers = client.guilds.array().map(g => g.name).join(',');
     console.log("--------------------------------------");
