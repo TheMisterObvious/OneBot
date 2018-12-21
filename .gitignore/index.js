@@ -2,6 +2,8 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const quickdb = require('quick.db');
 const blacklist = new quickdb.table('blacklist');
+const Economy = require("discord-economy");
+const eco = new Economy('1000');
 
 const prefix = "o!"; 
 const time = "1000"; 
@@ -17,6 +19,16 @@ var servercount = client.guilds.size;
     var servers = client.guilds.array().map(g => g.name).join(',');
     console.log("--------------------------------------");
 console.log("[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les évenement sont après ! :)  \n[!]Les préfix actuelle: o! \n[!]Mentions = <@521330981144100864> \n[!]Nombre de membres: " + memberCount + "\n[!]Nombre de serveurs: " + servercount);
+});
+
+//Economie
+ 
+eco.fetchBalance('userID').then(money => {
+    console.log(money);
+});
+ 
+eco.updateBalance('userID', 5000).then(newBalance => {
+    console.log(newBalance);
 });
 
 //Gban
