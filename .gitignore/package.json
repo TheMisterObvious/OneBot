@@ -12,6 +12,7 @@
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
     "discord-economy": "^1.1.5",
+    "discord-leveling": "^1.0.1",
     "quick.db": "^7.0.0-b16",
     "sequelize": "^4.41.2",
     "sqlite3": "^4.0.4"
