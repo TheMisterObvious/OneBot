@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const quickdb = require('quick.db');
 const blacklist = new quickdb.table('blacklist');
-const Economy = require("discord-economy");
+const Economy = require("discordeco.js");
 const eco = new Economy('1000');
 
 const prefix = "o!"; 
