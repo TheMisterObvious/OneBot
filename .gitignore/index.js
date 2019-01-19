@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const quickdb = require('quick.db');
-const blacklist = new quickdb.table('blacklist');
+const db = require('quick.db');
+const blacklist = new db.table('blacklist');
 
 const prefix = "o!"; 
 const time = "1000"; 
@@ -21,7 +21,6 @@ console.log("[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les éveneme
 
 //Gban
 
-/*
 setInterval(function(){
        var nombreMembresBannis = 0;
        var membresBannis = [];
@@ -90,6 +89,5 @@ client.on("message", async message => {
         }
     }
 });
-*/
 
 client.login(process.env.TOKEN);
