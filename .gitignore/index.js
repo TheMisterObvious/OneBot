@@ -21,6 +21,7 @@ console.log("[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les éveneme
 
 //Gban
 
+/*
 setInterval(function(){
        var nombreMembresBannis = 0;
        var membresBannis = [];
@@ -89,5 +90,86 @@ client.on("message", async message => {
         }
     }
 });
+*/
+
+//Fun
+
+client.on("message", message => {
+    if (message.content === prefix +'ticket') {
+        const reason = message.content.split(" ").slice(1).join(" ");
+        if (!message.guild.roles.exists("name", "Support Staff")) return message.channel.send(`Le rôle \`Support Staff\` n'éxiste pas, merci de le crée.`);
+        if (message.guild.channels.exists("name", "ticket-" + message.author.id)) return message.channel.send(`Vous avez déjà un ticket d'ouvert.`);
+        message.guild.createChannel(`ticket-${message.author.id}`, "text").then(c => {
+            let role = message.guild.roles.find("name", "Support Staff");
+            let role2 = message.guild.roles.find("name", "@everyone");
+            c.overwritePermissions(role, {
+                SEND_MESSAGES: true,
+                READ_MESSAGES: true
+            });
+            c.overwritePermissions(role2, {
+                SEND_MESSAGES: false,
+                READ_MESSAGES: false
+            });
+            c.overwritePermissions(message.author, {
+                SEND_MESSAGES: true,
+                READ_MESSAGES: true
+            });
+            message.channel.send(`:white_check_mark: Votre ticket à bien été crée, #${c.name}.`);
+            const embed = new Discord.RichEmbed()
+                .setColor(0xCF40FA)
+                .addField(`Hey ${message.author.username}!`, `essayez d’expliquer pourquoi vous avez ouvert ce ticket avec le plus de détails possible. Notre personnel de soutien sera bientôt là pour vous aider.`)
+                .setTimestamp();
+            c.send({
+                embed: embed
+            });
+        }).catch(console.error); 
+    }
+});
+
+client.on("message", message => {
+    if (message.content === prefix +'close') {
+        if (!message.channel.name.startsWith("ticket-")) return message.channel.send("Vous ne pouvez utilisez la commande `/close` seulement dans le salon de votre ticket.");
+        message.channel.send("Êtes-vous sûr ? Une fois confirmée, vous ne pouvez plus annuler cette action! \nPour confirmer, tapez `/confirm `. Cette action expirera dans 10 secondes et sera annulé.")
+            .then((m) => {
+                message.channel.awaitMessages(response => response.content === "/confirm", {
+                        max: 1,
+                        time: 10000,
+                        errors: ['time'],
+                    })
+                    .then((collected) => {
+                        message.channel.delete();
+                    })
+                    .catch(() => {
+                        m.edit("La fermeture du ticket a expiré, le ticket n\'a pas été fermé.").then(m2 => {
+                            m2.delete();
+                        }, 3000);
+                    });
+            });
+       }
+});
+
+//Strawpoll
+
+client.on("message", message => {
+  if (message.content.startsWith(prefix +'poll')) {
+  const poll = message.content.substring(5);
+      if (poll.lenght === 0) {
+         message.reply("Vous n'avez pas mis de question");
+      }
+  message.delete(1);
+  const pollembed = new Discord.RichEmbed()
+  .setTitle("StrawPoll")
+  .setColor("#5599ff")
+  .setDescription(`${poll}`)
+  .setFooter(`StrawPoll de ${message.author.username}`, `${message.author.avatarURL}`)
+  message.channel.send(pollembed)
+  .then(async function (message) {
+    await message.react("✅")
+    await message.react("❌")
+    await message.react("🤷")
+    });
+  }
+});
+
 
 client.login(process.env.TOKEN);
