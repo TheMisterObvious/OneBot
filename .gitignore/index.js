@@ -52,7 +52,7 @@ client.on("message", message => {
 client.on('message', message => {
   if (message.content.startsWith(prefix +'say')) {
     message.delete(1);
-    var say = message.content.substring(5);
+    var say = message.content.substring(6);
     message.channel.send("*"+ say +"*");
   }
 });
