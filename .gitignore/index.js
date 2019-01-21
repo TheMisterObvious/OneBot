@@ -138,16 +138,16 @@ client.on("message", message => {
 
 //Level
 
-let db = JSON.parse(fs.readFileSync(".levels.json", "utf8"));
+let ldb = JSON.parse(fs.readFileSync(".levels.json", "utf8"));
 
 client.on("message", message => {
     if (message.author.bot) return;
-    if (!db[message.author.id]) db[message.author.id] = {
+    if (!ldb[message.author.id]) ldb[message.author.id] = {
         xp: 0,
         level: 0
       };
-    db[message.author.id].xp++;
-    let userInfo = db[message.author.id];
+    ldb[message.author.id].xp++;
+    let userInfo = ldb[message.author.id];
     if(userInfo.xp > 100) {
         userInfo.level++
         userInfo.xp = 0
@@ -156,21 +156,21 @@ client.on("message", message => {
     const largs = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const cmd = largs.shift().toLowerCase();
     if(cmd === "level") {
-        let userInfo = db[message.author.id];
+        let userInfo = ldb[message.author.id];
         let member = message.mentions.members.first();
         let embed = new Discord.RichEmbed()
         .setColor(0x4286f4)
-        .addField("Level", userInfo.level)
-        .addField("XP", userInfo.xp+"/100");
+        .addField("__Level :__ ", userInfo.level)
+        .addField("__XP :__ ", userInfo.xp+"/100");
         if(!member) return message.channel.sendEmbed(embed)
-        let memberInfo = db[member.id]
+        let memberInfo = ldb[member.id]
         let embed2 = new Discord.RichEmbed()
         .setColor(0x4286f4)
-        .addField("Level", memberInfo.level)
-        .addField("XP", memberInfo.xp+"/100")
+        .addField("__Level :__ ", memberInfo.level)
+        .addField("__XP :__ ", memberInfo.xp+"/100")
         message.channel.sendEmbed(embed2)
     }
-    fs.writeFile("./json/database.json", JSON.stringify(db), (x) => {
+    fs.writeFile("./json/database.json", JSON.stringify(ldb), (x) => {
         if (x) console.error(x)
       });
 });
