@@ -138,7 +138,7 @@ client.on("message", message => {
 
 //Level
 
-let ldb = JSON.parse(fs.readFileSync(".levels.json", "utf8"));
+let ldb = JSON.parse(fs.readFileSync("./levels.json", "utf8"));
 
 client.on("message", message => {
     if (message.author.bot) return;
