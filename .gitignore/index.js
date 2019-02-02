@@ -81,6 +81,32 @@ client.on("message", message => {
 });
 
 client.on("message", message => {
+  if (message.content.startsWith(prefix +'info')) {
+    var memberavatar = message.author.avatarURL
+    var membername = message.author.username
+      var mentionned = message.mentions.users.first();
+      var getvalueof;
+      if(mentionned){
+          var getvalueof = mentionned;
+      } else {
+          var getvalueof = message.author;
+      }
+
+      if(getvalueof.bot == true){
+          var checkbot = "L'utilisateur est un bot";
+      } else {
+          var checkbot = "N'est pas un bot";
+      }
+      
+      if(getvalueof.presence.status == 'online'){
+        var status = "En ligne"; 
+      }else {
+        var status = "Hors ligne";
+      }
+  }
+});
+
+client.on("message", message => {
   if (message.content === prefix +'serverinfo') {
     message.delete(1);
     moment.locale("fr");
