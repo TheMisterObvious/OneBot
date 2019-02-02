@@ -91,12 +91,6 @@ client.on("message", message => {
       } else {
           var getvalueof = message.author;
       }
-
-      if(getvalueof.bot == true){
-          var checkbot = "L'utilisateur est un bot";
-      } else {
-          var checkbot = "N'est pas un bot";
-      }
       
       if(getvalueof.presence.status == 'online'){
         var status = "En ligne"; 
@@ -117,30 +111,22 @@ client.on("message", message => {
             value: getvalueof.id,
             inline: true
           },{
-            name: 'Discriminateur',
-            value: getvalueof.discriminator,
-            inline: true
-},{
             name: 'Status',
             value: status,
             inline: true
-},{
-            name: 'Bot',
-            value: checkbot,
-            inline: true
-}],
-        image: {
-      url: getvalueof.avatarURL
-        },
+          }],
           color: 0x666666,
           footer: {
             text: 'by TheMisterObvious',
             proxy_icon_url: ' '
           },
 
+          thumbnail: {
+            url: getvalueof.avatarURL 
+          },
           author: {
-            name: membername,
-            icon_url: memberavatar,
+            name: getvalueof.username +"#"+ getvalueof.discrimator,
+            icon_url: getvalueof.avatarURL,
             proxy_icon_url: ' '
           }
         }
