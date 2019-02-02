@@ -103,7 +103,49 @@ client.on("message", message => {
       }else {
         var status = "Hors ligne";
       }
-  }
+      
+      message.channel.sendMessage({
+              embed: {
+          type: 'rich',
+          description: '',
+          fields: [{
+            name: 'Pseudo',
+            value: getvalueof.username,
+            inline: true
+          }, {
+            name: 'User id',
+            value: getvalueof.id,
+            inline: true
+          },{
+            name: 'Discriminateur',
+            value: getvalueof.discriminator,
+            inline: true
+},{
+            name: 'Status',
+            value: status,
+            inline: true
+},{
+            name: 'Bot',
+            value: checkbot,
+            inline: true
+}],
+        image: {
+      url: getvalueof.avatarURL
+        },
+          color: 0x666666,
+          footer: {
+            text: 'by TheMisterObvious',
+            proxy_icon_url: ' '
+          },
+
+          author: {
+            name: membername,
+            icon_url: memberavatar,
+            proxy_icon_url: ' '
+          }
+        }
+     });
+   }
 });
 
 client.on("message", message => {
