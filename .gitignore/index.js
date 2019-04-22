@@ -46,22 +46,19 @@ client.on("message", message => {
   }
 });
 
-//Changement de préfix
+//Economie
 
-client.on('message', async message => {
-  let fetched = await db.fetch(`prefix_${message.guild.id}`);
-  if(fetched === null) prefix = 'o!';
-  else prefix = fetched;
+client.on('message', message => {
+  if (message.content.startsWith(prefix +"ecotest")) {
+    var ecotest = message.content.substring(10);
+    db.set('ecoInfo.test', ecotest);
+  }
 });
 
 client.on('message', message => {
-  if (message.content.startsWith(prefix + "setprefix")) {
-    if (!message.member.hasPermission('ADMINISTRATOR')) {
-      message.channel.send('**Désolé, vous n\'avez pas la permission `Administrateur` !**');
-    }
-    db.set(`prefix_${message.guild.id}`).then(i => {
-      message.channel.send(':checkmark: Le préfix à bien été changé en **${i}**');
-    })
+  if (message.content === prefix +"ecosay") {
+    var ecosay = db.get('ecoInfo.test');
+    message.channel.send(ecosay);
   }
 });
 
@@ -70,7 +67,7 @@ client.on('message', message => {
 client.on('message', message => {
   if (message.content.startsWith(prefix +'say')) {
     message.delete(1);
-    var say = message.content.substring(prefix.lenght + 4);
+    var say = message.content.substring(6);
     message.channel.send("*"+ say +"*");
   }
 });
@@ -92,7 +89,7 @@ client.on("message", message => {
 client.on("message", message => {
   if (message.content.startsWith(prefix +'botname')) {
     if (message.author.id === admin) {
-      client.user.setUsername(message.content.substring(prefix.lenght + 8));
+      client.user.setUsername(message.content.substring(10));
       message.delete(1);
     }
   }
@@ -186,7 +183,7 @@ client.on("message", message => {
 
 client.on("message", message => {
   if (message.content.startsWith(prefix +'meteo')) {
-    var location = message.content.substring(prefix.lenght + 6);
+    var location = message.content.substring(8);
     var unit = "C";
     
     try {
@@ -270,7 +267,7 @@ client.on("message", message => {
 
 client.on("message", message => {
   if (message.content.startsWith(prefix +'poll')) {
-  const poll = message.content.substring(prefix.lenght + 5);
+  const poll = message.content.substring(7);
       if (poll.lenght === 0) {
          message.reply("Vous n'avez pas mis de question");
       }
