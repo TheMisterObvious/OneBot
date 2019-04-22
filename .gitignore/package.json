@@ -14,7 +14,7 @@
     "discord-economy": "^1.1.5",
     "fs": "0.0.1-security",
     "moment": "^2.18.1",
-    "quick.db": "^7.0.0-b16",
+    "quick.db": "^7.0.0-b22",
     "sequelize": "^4.41.2",
     "sqlite3": "^4.0.4",
     "weather-js": "^2.0.0"
