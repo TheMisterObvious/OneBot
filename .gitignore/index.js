@@ -61,9 +61,10 @@ client.on('message', message => {
     if (!message.member.hasPermission('ADMINISTRATOR')) {
       message.channel.send('**Désolé, vous n\'avez pas la permission `Administrateur` !**');
     }
-  db.set(`prefix_${message.guild.id}`, args.join(' ')).then(i => {
+    db.set(`prefix_${message.guild.id}`, args.join(' ')).then(i => {
       message.channel.send(':checkmark: Le préfix à bien été changé en **${i}**');
-  })
+    })
+  }
 });
 
 //Autres
