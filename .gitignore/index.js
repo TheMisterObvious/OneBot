@@ -8,7 +8,7 @@ const weather = require("weather-js");
 const prefix = "o!"; 
 const admin = "335419820721963009";
 
-var args = message.content.slice(prefix.lenght).trim().split(' ');
+var args = "message.content.slice(prefix.lenght).trim().split(' ')";
 
 //Console log
 
