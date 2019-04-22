@@ -57,7 +57,7 @@ client.on('message', async message => {
 });
 
 client.on('message', message => {
-  if (message.content.startsWith(prefix + "setprefix") {
+  if (message.content.startsWith(prefix + "setprefix")) {
     if (!message.member.hasPermission('ADMINISTRATOR')) {
       message.channel.send('**Désolé, vous n\'avez pas la permission `Administrateur` !**');
     }
