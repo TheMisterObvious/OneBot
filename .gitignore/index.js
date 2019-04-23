@@ -51,18 +51,18 @@ client.on("message", message => {
 client.on("message", message => {
   if (message.content.startsWith(prefix +'testmoney')) {
       var add = message.content.substring(32);
-      var user = message.mentions.users.first;
+      var user = message.mentions.users.first();
       db.set('ecoInfo', add);
       db.set('ecoInfo2', user);
       var info = db.get('ecoInfo');
       var info2 = db.get('ecoInfo2');
-      message.channel.send('Add -> '+ info +'\nUser -> '+ info2);
+      message.channel.send('__Add:__'+ info +'\n__User:__ -> '+ info2);
   }
 });
 
 client.on("message", message => {
   if (message.content.startsWith(prefix +'money')) {
-    var user = message.mentions.users.first || message.author
+    var user = message.mentions.users.first() || message.author
     var bal = db.get(`money_${message.guild.id}_${user}`);
     if (bal === null) bal =0;
     message.channel.send('Vous avez '+ bal + ' $');
@@ -77,7 +77,7 @@ client.on("message", message => {
 client.on("message", message => {
   if (message.content.startsWith(prefix +'addmoney')) {
       var add = message.content.substring(31);
-      var user = message.mentions.users.first;
+      var user = message.mentions.users.first();
     if  (!message.member.hasPermission('ADMINISTRATOR')) {
        message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
     } 
@@ -98,7 +98,7 @@ client.on("message", message => {
 client.on("message", message => {
   if (message.content.startsWith(prefix +'removemoney')) {
       var remove = message.content.substring(34);
-      var user = message.mentions.users.first;
+      var user = message.mentions.users.first();
     if  (!message.member.hasPermission('ADMINISTRATOR')) {
        message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
     } 
@@ -119,7 +119,7 @@ client.on("message", message => {
 client.on("message", message => {
   if (message.content.startsWith(prefix +'setmoney')) {
       var set = message.content.substring(31);
-      var user = message.mentions.users.first;
+      var user = message.mentions.users.first();
     if  (!message.member.hasPermission('ADMINISTRATOR')) {
        message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
     } 
