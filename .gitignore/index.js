@@ -51,7 +51,7 @@ client.on("message", message => {
 client.on("message", message => {
   if (message.content.startsWith(prefix +'testmoney')) {
       var add = message.content.substring(32);
-      var user = message.mentions.users.first();
+      var user = message.mentions.users.first().id;
       db.set('ecoInfo', add);
       db.set('ecoInfo2', user);
       var info = db.get('ecoInfo');
