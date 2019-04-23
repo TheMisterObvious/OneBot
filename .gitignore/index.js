@@ -52,10 +52,10 @@ client.on("message", message => {
   if (message.content.startsWith(prefix +'testmoney')) {
       var add = message.content.substring(32);
       var user = message.mentions.users.first;
-      db.set('ecoTest.info', add);
-      db.set('ecoTest.info2', user);
-      var info = db.get('ecoTest.info');
-      var info2 = db.get('ecoTest.info2');
+      db.set('ecoInfo', add);
+      db.set('ecoInfo2', user);
+      var info = db.get('ecoInfo');
+      var info2 = db.get('ecoInfo2');
       message.channel.send('Add -> '+ info +'\nUser -> '+ info2);
   }
 });
