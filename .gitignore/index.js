@@ -99,7 +99,7 @@ client.on("message", message => {
     if (isNaN(remove)) {
        message.channel.send('Merci de spécifier un nombre valide !')
     }
-    db.remove(`money_${message.guild.id}_${user}`, remove);
+    db.substract(`money_${message.guild.id}_${user}`, remove);
     message.channel.send('Vous avez retirer '+ remove +'$ à '+ user +' !');
   }
 });
