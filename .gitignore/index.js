@@ -49,6 +49,18 @@ client.on("message", message => {
 //Economie
 
 client.on("message", message => {
+  if (message.content.startsWith(prefix +'testmoney')) {
+      var add = message.content.substring(32);
+      var user = message.mentions.users.first;
+      db.push('ecoTest.info', add);
+      db.push('ecoTest.info2', user);
+      var info = db.get('ecoTest.info');
+      var info2 = db.get('ecoTest.info2');
+      message.channel.send('Add -> '+ add +'\nUser -> '+ user);
+  }
+});
+
+client.on("message", message => {
   if (message.content.startsWith(prefix +'money')) {
     var user = message.mentions.users.first || message.author
     var bal = db.get(`money_${message.guild.id}_${user}`);
