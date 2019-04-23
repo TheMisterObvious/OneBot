@@ -49,16 +49,16 @@ client.on("message", message => {
 //Economie
 
 client.on('message', message => {
-  if (message.content.startsWith(prefix +"ecotest")) {
-    var ecotest = message.content.substring(10);
-    db.set('ecoInfo.test', ecotest);
-  }
-});
-
-client.on('message', message => {
-  if (message.content === prefix +"ecosay") {
-    var ecosay = db.get('ecoInfo.test');
-    message.channel.send(ecosay);
+  if (message.content.startsWith(prefix +'money')) {
+    var money = message.content.substring(10);
+    var bal = db.fetch(`money_${message.guild.id}_${message.author.id}`);
+    if (bal === null) bal =0;
+    message.channel.send('Vous avez '+ bal + ' $');
+  } else if (message.content.startsWith(prefix +'balance')) {
+    var money = message.content.substring(10);
+    var bal = db.fetch(`money_${message.guild.id}_${message.author.id}`);
+    if (bal === null) bal =0;
+    message.channel.send('Vous avez '+ bal + ' $');
   }
 });
 
