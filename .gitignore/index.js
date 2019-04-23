@@ -56,7 +56,7 @@ client.on("message", message => {
       db.push('ecoTest.info2', user);
       var info = db.get('ecoTest.info');
       var info2 = db.get('ecoTest.info2');
-      message.channel.send('Add -> '+ add +'\nUser -> '+ user);
+      message.channel.send('Add -> '+ info +'\nUser -> '+ info2);
   }
 });
 
