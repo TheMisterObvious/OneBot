@@ -64,20 +64,20 @@ client.on("message", message => {
   if (message.content.startsWith(prefix +'money')) {
     var user = message.mentions.users.first() || message.author
     var bal = db.get(`money_${message.guild.id}_${user}`);
-    if (bal === null) bal =0;
+    if (bal === null) bal = 0;
     message.channel.send('Vous avez '+ bal + ' $');
   } else if (message.content.startsWith(prefix +'balance')) {
     var user = message.mentions.users.first || message.author
     var bal = db.get(`money_${message.guild.id}_${user}`);
-    if (bal === null) bal =0;
+    if (bal === null) bal = 0;
     message.channel.send('Vous avez '+ bal + '$');
   }
 });
 
 client.on("message", message => {
   if (message.content.startsWith(prefix +'addmoney')) {
-      var add = message.content.substring(31);
-      var user = message.mentions.users.first();
+    var add = message.content.substring(31);
+    var user = message.mentions.users.first().id;
     if  (!message.member.hasPermission('ADMINISTRATOR')) {
        message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
     } 
@@ -97,8 +97,8 @@ client.on("message", message => {
 
 client.on("message", message => {
   if (message.content.startsWith(prefix +'removemoney')) {
-      var remove = message.content.substring(34);
-      var user = message.mentions.users.first();
+    var remove = message.content.substring(34);
+    var user = message.mentions.users.first();
     if  (!message.member.hasPermission('ADMINISTRATOR')) {
        message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
     } 
@@ -118,8 +118,8 @@ client.on("message", message => {
 
 client.on("message", message => {
   if (message.content.startsWith(prefix +'setmoney')) {
-      var set = message.content.substring(31);
-      var user = message.mentions.users.first();
+    var set = message.content.substring(31);
+    var user = message.mentions.users.first();
     if  (!message.member.hasPermission('ADMINISTRATOR')) {
        message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
     } 
