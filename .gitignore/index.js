@@ -48,19 +48,102 @@ client.on("message", message => {
 
 //Economie
 
-client.on('message', message => {
+client.on("message", message => {
   if (message.content.startsWith(prefix +'money')) {
-    var money = message.content.substring(10);
-    var bal = db.fetch(`money_${message.guild.id}_${message.author.id}`);
+    var user = message.mentions.users.first || message.author
+    var bal = db.get(`money_${message.guild.id}_${user}`);
     if (bal === null) bal =0;
     message.channel.send('Vous avez '+ bal + ' $');
   } else if (message.content.startsWith(prefix +'balance')) {
-    var money = message.content.substring(10);
-    var bal = db.fetch(`money_${message.guild.id}_${message.author.id}`);
+    var user = message.mentions.users.first || message.author
+    var bal = db.get(`money_${message.guild.id}_${user}`);
     if (bal === null) bal =0;
-    message.channel.send('Vous avez '+ bal + ' $');
+    message.channel.send('Vous avez '+ bal + '$');
   }
 });
+
+client.on("message", message => {
+  if (message.content.startsWith(prefix +'addmoney')) {
+      var add = message.content.substring(31);
+      var user = message.mentions.users.first;
+    if  (!message.member.hasPermission('ADMINISTRATOR')) {
+       message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
+    } 
+    if (user === null) {
+       message.channel.send('Merci de spécifier un utilisateur !');
+    }
+    if (add.lenght === 0) {
+       message.channel.send('Merci de spécifier un montant à ajouter !');
+    }
+    if (isNaN(add)) {
+       message.channel.send('Merci de spécifier un nombre valide !')
+    }
+    db.add(`money_${message.guild.id}_${user}`, add);
+    message.channel.send('Vous avez ajouté '+ add +'$ à '+ user +' !');
+  }
+});
+
+client.on("message", message => {
+  if (message.content.startsWith(prefix +'removemoney')) {
+      var remove = message.content.substring(34);
+      var user = message.mentions.users.first;
+    if  (!message.member.hasPermission('ADMINISTRATOR')) {
+       message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
+    } 
+    if (user === null) {
+       message.channel.send('Merci de spécifier un utilisateur !');
+    }
+    if (remove.lenght === 0) {
+       message.channel.send('Merci de spécifier un montant à retirer !');
+    }
+    if (isNaN(remove)) {
+       message.channel.send('Merci de spécifier un nombre valide !')
+    }
+    db.remove(`money_${message.guild.id}_${user}`, remove);
+    message.channel.send('Vous avez retirer '+ remove +'$ à '+ user +' !');
+  }
+});
+
+client.on("message", message => {
+  if (message.content.startsWith(prefix +'setmoney')) {
+      var set = message.content.substring(31);
+      var user = message.mentions.users.first;
+    if  (!message.member.hasPermission('ADMINISTRATOR')) {
+       message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
+    } 
+    if (user === null) {
+       message.channel.send('Merci de spécifier un utilisateur !');
+    }
+    if (set.lenght === 0) {
+       message.channel.send('Merci de spécifier un montant à fixer !');
+    }
+    if (isNaN(set)) {
+       message.channel.send('Merci de spécifier un nombre valide !')
+    }
+    db.set(`money_${message.guild.id}_${user}`, set);
+    message.channel.send('Vous avez mis la balance à '+ add +'$ de '+ user +' !');
+  }
+});
+
+client.on("message", message => {
+  if (message.content === prefix +'leaderboard') {
+    var money = db.startsWith(`money_${message.guild.id}`, {sort: '.data'});
+    var content = "";
+    for (var i = 0; i < money.lenght; i++) {
+      var user = client.users.get(money[i].ID.split('_')[2]).username
+      content += `${i+1}. ${user} ~ ${money[i].data}$\n`;
+    }
+    const embed = new Discord.RichEmbed
+    .setAuthor(`$(message.guild.name} - Leaderboard`, message.guild.iconURL)
+    .setDescription(content)
+    .setColor(0x51267) 
+    message.channel.send(embed);
+  }
+});
+
+//Changement de préfix
+
+
 
 //Autres
 
