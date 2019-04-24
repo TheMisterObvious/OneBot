@@ -53,11 +53,12 @@ client.on("message", message => {
     var args = message.content.slice(prefix.length).split(/ +/);
     var command = args.shift().toLowerCase();
     var arguments = parseInt(args[2]);
-    if (!args.lenght === 3) {
+    if (!args.lenght < 3) {
       message.channel.send('Nop');
-    }
+    } else if {
     message.channel.send('arguments -> '+ arguments);
     message.channel.send('args -> '+ args);
+    }
   }
 });
 
