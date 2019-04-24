@@ -20,6 +20,7 @@ client.on("message", message => {
   if (command === 'test') {
     message.channel.send('Test ok !');
   }
+});
 
 //Console log
 
