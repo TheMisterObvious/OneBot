@@ -8,6 +8,9 @@ const weather = require("weather-js");
 const prefix = "o!"; 
 const admin = "335419820721963009";
 
+const args = message.content.slice(prefix.length).split(/ +/);
+const command = args.shift().toLowerCase();
+
 //Console log
 
 client.on("ready", () => {
@@ -49,14 +52,13 @@ client.on("message", message => {
 //Economie
 
 client.on("message", message => {
-  if (message.content.startsWith(prefix +'testmoney')) {
-      var add = message.content.substring(32);
-      var user = message.mentions.users.first().id;
-      db.set('ecoInfo', add);
-      db.set('ecoInfo2', user);
-      var info = db.get('ecoInfo');
-      var info2 = db.get('ecoInfo2');
-      message.channel.send('__Add:__'+ info +'\n__User:__ -> '+ info2);
+  if (message.conetnt.startsWith(prefix +'test')) {
+    var arguments = parseInt(args[2]);
+    if (!args.lenght === 3) {
+      message.channel.send('Nop');
+    }
+    message.channel.send('arguments -> '+ arguments);
+    message.channel.send('args -> '+ args);
   }
 });
 
@@ -64,76 +66,13 @@ client.on("message", message => {
   if (message.content.startsWith(prefix +'money')) {
     var user = message.mentions.users.first() || message.author
     var bal = db.get(`money_${message.guild.id}_${user}`);
-    if (bal === null) bal = 0;
+    if (bal === null) bal =0;
     message.channel.send('Vous avez '+ bal + ' $');
   } else if (message.content.startsWith(prefix +'balance')) {
     var user = message.mentions.users.first || message.author
     var bal = db.get(`money_${message.guild.id}_${user}`);
-    if (bal === null) bal = 0;
+    if (bal === null) bal =0;
     message.channel.send('Vous avez '+ bal + '$');
-  }
-});
-
-client.on("message", message => {
-  if (message.content.startsWith(prefix +'addmoney')) {
-    var add = message.content.substring(31);
-    var user = message.mentions.users.first().id;
-    if  (!message.member.hasPermission('ADMINISTRATOR')) {
-       message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
-    } 
-    if (user === null) {
-       message.channel.send('Merci de spécifier un utilisateur !');
-    }
-    if (add.lenght === 0) {
-       message.channel.send('Merci de spécifier un montant à ajouter !');
-    }
-    if (isNaN(add)) {
-       message.channel.send('Merci de spécifier un nombre valide !')
-    }
-    db.add(`money_${message.guild.id}_${user}`, add);
-    message.channel.send('Vous avez ajouté '+ add +'$ à '+ user +' !');
-  }
-});
-
-client.on("message", message => {
-  if (message.content.startsWith(prefix +'removemoney')) {
-    var remove = message.content.substring(34);
-    var user = message.mentions.users.first();
-    if  (!message.member.hasPermission('ADMINISTRATOR')) {
-       message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
-    } 
-    if (user === null) {
-       message.channel.send('Merci de spécifier un utilisateur !');
-    }
-    if (remove.lenght === 0) {
-       message.channel.send('Merci de spécifier un montant à retirer !');
-    }
-    if (isNaN(remove)) {
-       message.channel.send('Merci de spécifier un nombre valide !')
-    }
-    db.substract(`money_${message.guild.id}_${user}`, remove);
-    message.channel.send('Vous avez retirer '+ remove +'$ à '+ user +' !');
-  }
-});
-
-client.on("message", message => {
-  if (message.content.startsWith(prefix +'setmoney')) {
-    var set = message.content.substring(31);
-    var user = message.mentions.users.first();
-    if  (!message.member.hasPermission('ADMINISTRATOR')) {
-       message.channel.send('Vous n\'avez pas la permission d\'éxécuter cette commande !');
-    } 
-    if (user === null) {
-       message.channel.send('Merci de spécifier un utilisateur !');
-    }
-    if (set.lenght === 0) {
-       message.channel.send('Merci de spécifier un montant à fixer !');
-    }
-    if (isNaN(set)) {
-       message.channel.send('Merci de spécifier un nombre valide !')
-    }
-    db.set(`money_${message.guild.id}_${user}`, set);
-    message.channel.send('Vous avez mis la balance à '+ add +'$ de '+ user +' !');
   }
 });
 
