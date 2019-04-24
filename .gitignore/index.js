@@ -52,7 +52,7 @@ client.on("message", message => {
 //Economie
 
 client.on("message", message => {
-  if (message.conetnt.startsWith(prefix +'test')) {
+  if (message.content.startsWith(prefix +'test')) {
     var arguments = "parseInt(args[2])";
     if (!args.lenght === 3) {
       message.channel.send('Nop');
