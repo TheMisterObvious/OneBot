@@ -49,20 +49,6 @@ client.on("message", message => {
 //Economie
 
 client.on("message", message => {
-  if (message.content.startsWith(prefix +'test')) {
-    var args = message.content.slice(prefix.length).split(/ +/);
-    var command = args.shift().toLowerCase();
-    var arguments = parseInt(args[2]);
-    if (args.lenght < 3) {
-      message.channel.send('Nop');
-    } else if {
-    message.channel.send('arguments -> '+ arguments);
-    message.channel.send('args -> '+ args);
-    }
-  }
-});
-
-client.on("message", message => {
   if (message.content.startsWith(prefix +'money')) {
     var user = message.mentions.users.first() || message.author
     var bal = db.get(`money_${message.guild.id}_${user}`);
