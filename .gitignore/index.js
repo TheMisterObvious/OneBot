@@ -25,6 +25,7 @@ client.on("message", message => {
   }
 });
 
+/*
 //Console log
 
 client.on("ready", () => {
@@ -327,7 +328,6 @@ client.on("message", message => {
 
 //Gban
 
-/*
 setInterval(function(){
        var nombreMembresBannis = 0;
        var membresBannis = [];
