@@ -8,9 +8,6 @@ const weather = require("weather-js");
 const prefix = "o!"; 
 const admin = "335419820721963009";
 
-var args = message.content.slice(prefix.length).split(/ +/);
-var command = args.shift().toLowerCase();
-
 //Console log
 
 client.on("ready", () => {
@@ -53,6 +50,8 @@ client.on("message", message => {
 
 client.on("message", message => {
   if (message.content.startsWith(prefix +'test')) {
+    var args = message.content.slice(prefix.length).split(/ +/);
+    var command = args.shift().toLowerCase();
     var arguments = parseInt(args[2]);
     if (!args.lenght === 3) {
       message.channel.send('Nop');
