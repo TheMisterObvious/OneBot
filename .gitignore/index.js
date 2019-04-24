@@ -15,10 +15,13 @@ client.on("message", message => {
   var sender = message.author;
   var msg = message.content.toUpperCase
   var msgstart = message.content.startsWith.toUpperCase
-  var command = message.content.toUpperCase.substring(prefix.lenght);
+  var command = message.content.substring(prefix.lenght).toUpperCase;
   
-  if (command === 'test') {
+  if (command === 'testr') {
     message.channel.send('Test ok !');
+  }
+  if (msgstart === 'test') {
+    message.channel.send('nickel !');
   }
 });
 
