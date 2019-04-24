@@ -8,6 +8,19 @@ const weather = require("weather-js");
 const prefix = "o!"; 
 const admin = "335419820721963009";
 
+//Upgrade Code (WIP)
+
+client.on("message", message => {
+  var prefix = "o!";
+  var sender = message.author;
+  var msg = message.content.toUpperCase
+  var msgstart = message.content.startsWith.toUpperCase
+  var command = message.content.toUpperCase.substring(prefix.lenght);
+  
+  if (command === 'test') {
+    message.channel.send('Test ok !');
+  }
+
 //Console log
 
 client.on("ready", () => {
