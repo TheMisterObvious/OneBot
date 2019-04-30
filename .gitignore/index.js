@@ -13,16 +13,16 @@ const admin = "335419820721963009";
 client.on("message", message => {
   var prefix = "o!";
   var sender = message.author;
-  var msg = message.content.toUpperCase
-  var msgstart = message.content.startsWith.toUpperCase
-  var command = message.content.substring(prefix.lenght).toUpperCase;
+  var msg = message.content.toUpperCase();
   
-  if (command === 'testr') {
-    message.channel.send('Test ok !');
+  if (sender === "536240939681972234") {
+    return;
   }
-  if (msgstart === 'test') {
-    message.channel.send('nickel !');
+  
+  if (msg === prefix +"ping") {
+    message.channel.send ("pong");
   }
+   
 });
 
 /*
