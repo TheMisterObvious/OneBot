@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args) => {
         let embed = new Discord.RichEmbed()
         .setColor("#5599ff")
         .setAuthor("Daily")
-        .setDescription("Vous avez reçu "+ amount)
+        .setDescription("Vous avez reçu "+ amount+ " $")
         message.channel.send(embed);
         db.add(`money_${message.author.id}`, amount);
         db.set(`daily_${message.author.id}`, Date.now())
