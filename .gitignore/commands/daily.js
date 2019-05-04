@@ -5,7 +5,7 @@ module.exports.run = async (client, message, args) => {
     const ms = require("parse-ms");
     
     let timeout = 86400000;
-    let amount = Math.floor(Math.random() * 1000) + 1;
+    let amount = Math.floor(Math.random() * 1000);
     let daily = await db.get(`daily_${message.author.id}`);
   
     if (daily !== null && timeout - (Date.now() - daily) > 0) {
@@ -14,8 +14,8 @@ module.exports.run = async (client, message, args) => {
     } else {
         let embed = new Discord.RichEmbed()
         .setColor("#5599ff")
-        .setDescription("Daily")
-        .addField("Vous avez reçu ", amount)
+        .setAuthor("Daily")
+        .setDescription("Vous avez reçu "+ amount)
         message.channel.send(embed);
         db.add(`money_${message.author.id}`, amount);
         db.set(`daily_${message.author.id}`, Date.now())
