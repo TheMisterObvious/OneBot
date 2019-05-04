@@ -6,7 +6,8 @@ module.exports.run = async (client, message, args) => {
     
     let timeout = 86400000;
     let amount = Math.floor(Math.random() * 1000);
-    let daily = await db.get(`daily_${message.author.id}`);
+    let user = message.author;
+    let daily = await db.get(`daily_${message.guild.id}_${user}`);
   
     if (daily !== null && timeout - (Date.now() - daily) > 0) {
         let time = ms(timeout - (Date.now() - daily));
@@ -17,8 +18,8 @@ module.exports.run = async (client, message, args) => {
         .setAuthor("Daily")
         .setDescription("Vous avez reçu "+ amount+ " $")
         message.channel.send(embed);
-        db.add(`money_${message.author.id}`, amount);
-        db.set(`daily_${message.author.id}`, Date.now())
+        db.add(`money_${message.guild.id}_${user}`, amount);
+        db.set(`daily_${message.guild.id}_${user}`, Date.now())
     }
 
 }
