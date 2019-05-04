@@ -8,10 +8,10 @@ module.exports.run = async (client, message, args) => {
     } else {
         var user = message.author;
     }
-    var bal = db.get(`money_${message.guild.id}_${user}`);
+    var bal = db.get(`money_${message.guild.id}_${user.id}`);
     if (bal === null) bal = 0;
     if (mentionned) {
-        message.channel.send({embed:{description:`${user} a `+ bal +" $"}});
+        message.channel.send({embed:{description:`${user.id} a `+ bal +" $"}});
     } else {
         message.channel.send({embed:{description:"Vous avez "+ bal +" $"}});
     }
