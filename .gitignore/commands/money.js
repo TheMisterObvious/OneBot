@@ -1,5 +1,6 @@
 module.exports.run = async (client, message, args) => {
-
+    
+    const Discord = require("discord.js");
     const db = require("quick.db");
     var mentionned = message.mentions.users.first();
 
@@ -11,9 +12,17 @@ module.exports.run = async (client, message, args) => {
     var bal = db.get(`money_${message.guild.id}_${user.id}`);
     if (bal === null) bal = 0;
     if (mentionned) {
-        message.channel.send({embed:{description:`${user.id} a `+ bal +" $", color: "#5599ff"}});
+        let embed = new Discord.RichEmbed
+        .setColor("#5599ff")
+        .setAuthor("Money")
+        .setDescription(mentionned +" a "+ bal +" $")
+        message.channel.send(embed);
     } else {
-        message.channel.send({embed:{description:"Vous avez "+ bal +" $", color: "#5599ff"}});
+        let embed = new Discord.RichEmbed
+        .setColor("#5599ff")
+        .setAuthor("Money")
+        .setDescription("Vous avez "+ bal +" $")
+        message.channel.send(embed);
     }
 
 }
