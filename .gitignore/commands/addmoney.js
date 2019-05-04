@@ -24,7 +24,7 @@ module.exports.run = async (client, message, args) => {
         return message.channel.send("**Merci de saisir un utilisateur valide !");
     }
     
-    let embed = new Discord.RichEmbed
+    let embed = new Discord.RichEmbed()
     .setColor("#5599ff")
     .setAuthor("Addmoney")
     .setDescription("Vous venez d'ajouter "+ args[0] +"$ à "+ mentionned)
