@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args) => {
         return message.channel.send("**Merci de saisir un utilisateur à qui ajouter de l'argent !**");
     }
     
-    if (!args[1] === mentionned) {
+    if (mentionned === null) {
         return message.channel.send("**Merci de saisir un utilisateur valide !");
     }
     
