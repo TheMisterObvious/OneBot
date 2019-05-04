@@ -11,7 +11,7 @@ module.exports.run = async (client, message, args) => {
   
     if (daily !== null && timeout - (Date.now() - daily) > 0) {
         let time = ms(timeout - (Date.now() - daily));
-        message.channel.send(`Vous avez déjà récupéré votre récompense du jour, vous pourrez de nouveau la récupéré dans ${time.hours}h ${time.minutes}m ${time.seconds}s !`);
+        message.channel.send(`**Vous avez déjà récupéré votre récompense du jour, vous pourrez de nouveau la récupéré dans ${time.hours}h ${time.minutes}m ${time.seconds}s !**`);
     } else {
         let embed = new Discord.RichEmbed()
         .setColor("#5599ff")
