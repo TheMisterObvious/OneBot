@@ -17,11 +17,11 @@ module.exports.run = async (client, message, args) => {
     }
     
     if (args[1] === undefined) {
-        return message.channel.send("**Merci de saisir un utilisateur à qui ajouter de l'argent !**");
+        return message.channel.send("**Merci de mentionner un utilisateur à qui ajouter de l'argent !**");
     }
     
     if (mentionned === null) {
-        return message.channel.send("**Merci de saisir un utilisateur valide !");
+        return message.channel.send("**Merci de mentionner un utilisateur valide !");
     }
     
     let embed = new Discord.RichEmbed()
