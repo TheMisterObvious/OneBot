@@ -5,23 +5,23 @@ module.exports.run = async (client, message, args) => {
     var mentionned = message.mentions.users.first();
     
     if (!message.member.hasPermission("ADMINISTRATOR")) {
-        message.channel.send("**Vous n'avez pas la permission de faire ça (permission manquante: ADMINISTRATEUR) !**")
+        return message.channel.send("**Vous n'avez pas la permission de faire ça (permission manquante: ADMINISTRATEUR) !**")
     }
     
     if (args[0] === undefined) {
-        message.channel.send("**Merci de saisir une valeur à ajouter !**");
+        return message.channel.send("**Merci de saisir une valeur à ajouter !**");
     }
     
     if (isNaN(args[0])) {
-        message.channel.send("**Merci de saisir une valeur numérique valide ("+ args[0] +" <- ceci n'est pas une valeur numérique valide) !**");
+        return message.channel.send("**Merci de saisir une valeur numérique valide ("+ args[0] +" <- ceci n'est pas une valeur numérique valide) !**");
     }
     
     if (args[1] === undefined) {
-        message.channel.send("**Merci de saisir un utilisateur à qui ajouter de l'argent !**");
+        return message.channel.send("**Merci de saisir un utilisateur à qui ajouter de l'argent !**");
     }
     
     if (!args[1] === mentionned) {
-        message.channel.send("**Merci de saisir un utilisateur valide !");
+        return message.channel.send("**Merci de saisir un utilisateur valide !");
     }
     
     let embed = new Discord.RichEmbed
