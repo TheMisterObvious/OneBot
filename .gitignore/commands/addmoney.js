@@ -21,7 +21,7 @@ module.exports.run = async (client, message, args) => {
     }
     
     if (mentionned === undefined) {
-        return message.channel.send("**Merci de mentionner un utilisateur valide !");
+        return message.channel.send("**Merci de mentionner un utilisateur valide !**");
     }
     
     let embed = new Discord.RichEmbed()
