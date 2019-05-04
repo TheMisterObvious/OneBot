@@ -4,30 +4,45 @@ const db = require('quick.db');
 const blacklist = new db.table('blacklist');
 const moment = require("moment");
 const weather = require("weather-js");
-
-const prefix = "o!"; 
-const admin = "335419820721963009";
+const fs = require("fs");
 
 //Upgrade Code (WIP)
+
+client.commands = new Discord.Collection();
+
+fs.readdir("./commands/", (err, files) => {
+    if (err) console.log(err);
+
+    var jsfiles = files.filter(f => f.split('.').pop() === 'js');
+    if (jsfiles.length <= 0) { 
+        return console.log('Aucune commande trouvé...');
+    } else { 
+        console.log(jsfiles.length +' commandes trouvés.')
+    }
+
+    jsfiles.forEach((f, i) => {
+        var cmds = require(`./commands/${f}`);
+        console.log(`Commande ${f} en chargement...`);
+        client.commands.set(cmds.config.command, cmds);
+    })
+});
 
 client.on("message", message => {
   var prefix = "o!";
   var sender = message.author;
   var msg = message.content.toUpperCase();
-  
-  if (sender === "536240939681972234") {
-    return;
-  }
-  
-  if (msg === prefix +"ping") {
-    message.channel.send ("pong");
-  }
+  var cont = message.content.slice(prefix.length).split(" ");
+  var args = cont.slice(1);
+
+  if (!message.content.startsWith(prefix)) return;
+
+  var cmd = client.commands.get(cont[0]);
+  if (cmd) cmd.run(client, message, args);
    
 });
 
 /*
 //Console log
-
 client.on("ready", () => {
 var memberCount = client.users.size;
 var servercount = client.guilds.size;
@@ -37,49 +52,7 @@ var servercount = client.guilds.size;
     console.log("--------------------------------------");
 console.log("[!]Connexion en cours... \n[!]Veuillez Patienté! \n[!]Les évenement sont après ! :)  \n[!]Les préfix actuelle: o! \n[!]Mentions = <@521330981144100864> \n[!]Nombre de membres: " + memberCount + "\n[!]Nombre de serveurs: " + servercount);
 });
-
-//Réponses automatiques
-
-client.on("message", message => {
-  if (message.content === 'test') {
-    message.reply('Test !');
-  }
-}); 
-
-client.on("message", message => {
-  if (message.content === 'Test') {
-    message.reply('Test !');
-  }
-}); 
-
-client.on("message", message => {
-  if (message.content.startsWith('bonjour')) {
-    message.channel.send('Salut ça va ?');
-  }
-});
-
-client.on("message", message => {
-  if (message.content.startsWith('Bonjour')) {
-    message.channel.send('Salut ça va ?');
-  }
-});
-
 //Economie
-
-client.on("message", message => {
-  if (message.content.startsWith(prefix +'money')) {
-    var user = message.mentions.users.first() || message.author
-    var bal = db.get(`money_${message.guild.id}_${user}`);
-    if (bal === null) bal =0;
-    message.channel.send('Vous avez '+ bal + ' $');
-  } else if (message.content.startsWith(prefix +'balance')) {
-    var user = message.mentions.users.first || message.author
-    var bal = db.get(`money_${message.guild.id}_${user}`);
-    if (bal === null) bal =0;
-    message.channel.send('Vous avez '+ bal + '$');
-  }
-});
-
 client.on("message", message => {
   if (message.content === prefix +'leaderboard') {
     var money = db.startsWith(`money_${message.guild.id}`, {sort: '.data'});
@@ -93,43 +66,6 @@ client.on("message", message => {
     .setDescription(content)
     .setColor(0x51267) 
     message.channel.send(embed);
-  }
-});
-
-//Changement de préfix
-
-
-
-//Autres
-
-client.on('message', message => {
-  if (message.content.startsWith(prefix +'say')) {
-    message.delete(1);
-    var say = message.content.substring(6);
-    message.channel.send("*"+ say +"*");
-  }
-});
-
-client.on("message", message => {
-  if (message.content === prefix +'channel') {
-    message.delete(1);
-    const data = client.channels.get(message.channel.id);
-    moment.locale("fr");
-    var temps = moment(data.createdTimestamp).format("LLLL");
-    console.log(temps)
-    message.channel.send("\n" + "```javascript"+ "\n" + "Nom du channel: " + data.name + "\n" + "Type de channel: " + data.type + "\n" +
-    "Channel id: " + data.id + "\n" + "Topic: " + data.topic + "\n" + "Créer le: " + temps + "```" );
-    console.log("\n" + "**" + "Channel id: " + data.id + "**" );
-    console.log(data);
-  }
-}); 
-
-client.on("message", message => {
-  if (message.content.startsWith(prefix +'botname')) {
-    if (message.author.id === admin) {
-      client.user.setUsername(message.content.substring(10));
-      message.delete(1);
-    }
   }
 });
 
@@ -173,7 +109,6 @@ client.on("message", message => {
             text: 'by TheMisterObvious',
             proxy_icon_url: ' '
           },
-
           thumbnail: {
             url: getvalueof.avatarURL 
           },
@@ -186,7 +121,6 @@ client.on("message", message => {
      });
    }
 });
-
 client.on("message", message => {
   if (message.content === prefix +'serverinfo') {
     message.delete(1);
@@ -203,7 +137,6 @@ client.on("message", message => {
     message.channel.send(serverembed);
   }
 });
-
 client.on("message", message => {
   if (message.content === prefix +'botinfo') {
       message.delete(1);
@@ -218,7 +151,6 @@ client.on("message", message => {
       message.channel.send(embed);
   }
 });
-
 client.on("message", message => {
   if (message.content.startsWith(prefix +'meteo')) {
     var location = message.content.substring(8);
@@ -241,12 +173,8 @@ client.on("message", message => {
     }
 }
 });
-
-
 //Level
-
 //Ticket
-
 client.on("message", message => {
     if (message.content === prefix +'ticket') {
         const reason = message.content.split(" ").slice(1).join(" ");
@@ -278,7 +206,6 @@ client.on("message", message => {
         }).catch(console.error); 
     }
 });
-
 client.on("message", message => {
     if (message.content === prefix +'close') {
         if (!message.channel.name.startsWith("ticket-")) return message.channel.send("Vous ne pouvez utilisez la commande `/close` seulement dans le salon de votre ticket.");
@@ -300,9 +227,7 @@ client.on("message", message => {
             });
        }
 });
-
 //Strawpoll
-
 client.on("message", message => {
   if (message.content.startsWith(prefix +'poll')) {
   const poll = message.content.substring(7);
@@ -323,11 +248,8 @@ client.on("message", message => {
     });
   }
 });
-
 //Economie
-
 //Gban
-
 setInterval(function(){
        var nombreMembresBannis = 0;
        var membresBannis = [];
@@ -346,7 +268,6 @@ client.guilds.forEach(serveur => {
             });
         });
     }, time);
-
 client.on("message", async message => {
        if(message.content.indexOf(prefix !== 0)) return;
   
