@@ -13,15 +13,15 @@ module.exports.run = async (client, message, args) => {
     if (bal === null) bal = 0;
     if (mentionned) {
         let embed = new Discord.RichEmbed
-        .setColor("#5599ff")
         .setAuthor("Money")
         .setDescription(mentionned +" a "+ bal +" $")
+        .setColor("#5599ff")
         message.channel.send(embed);
     } else {
         let embed = new Discord.RichEmbed
-        .setColor("#5599ff")
         .setAuthor("Money")
         .setDescription("Vous avez "+ bal +" $")
+        .setColor("#5599ff")
         message.channel.send(embed);
     }
 
