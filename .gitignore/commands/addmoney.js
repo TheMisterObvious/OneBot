@@ -9,14 +9,6 @@ module.exports.run = async (client, message, args) => {
     }
     
     if (args[0] === undefined) {
-        return message.channel.send("**Merci de saisir une valeur à ajouter !**");
-    }
-    
-    if (isNaN(args[0])) {
-        return message.channel.send("**Merci de saisir une valeur numérique valide ("+ args[0] +" <- ceci n'est pas une valeur numérique valide) !**");
-    }
-    
-    if (args[1] === undefined) {
         return message.channel.send("**Merci de mentionner un utilisateur à qui ajouter de l'argent !**");
     }
     
@@ -24,12 +16,20 @@ module.exports.run = async (client, message, args) => {
         return message.channel.send("**Merci de mentionner un utilisateur valide !**");
     }
     
+    if (args[1] === undefined) {
+        return message.channel.send("**Merci de saisir une valeur à ajouter !**");
+    }
+    
+    if (isNaN(args[1])) {
+        return message.channel.send("**Merci de saisir une valeur numérique valide ("+ args[1] +" <- ceci n'est pas une valeur numérique valide) !**");
+    }
+    
     let embed = new Discord.RichEmbed()
     .setColor("#5599ff")
     .setAuthor("Addmoney")
-    .setDescription("Vous venez d'ajouter "+ args[0] +"$ à "+ mentionned)
+    .setDescription("Vous venez d'ajouter "+ args[1] +"$ à "+ mentionned)
     message.channel.send(embed);
-    db.add(`money_${message.guild.id}_${mentionned.id}`, args[0])
+    db.add(`money_${message.guild.id}_${mentionned.id}`, args[1])
 
 }
     
