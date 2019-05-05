@@ -253,10 +253,11 @@ client.on("message", message => {
 
 //Gban
 setInterval(function(){
-       var time = 10;
        var nombreMembresBannis = 0;
        var membresBannis = [];
        var blacklisted = blacklist.get('blacklist.users');
+       var time = 10;
+
         
 client.guilds.forEach(serveur => {
        serveur.members.forEach(membre => {
