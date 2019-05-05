@@ -1,5 +1,6 @@
 module.exports.run = async (client, message, args) => {
 
+    const Discord = require("discord.js");
     const weather = require("weather-js");
 
     var location = args[0];
