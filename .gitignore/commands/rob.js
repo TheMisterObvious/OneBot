@@ -10,14 +10,14 @@ module.exports.run = async (client, message, args) => {
     let author = await db.get(`money_${message.guild.id}_${user.id}`);
   
     if (robeduser === undefined) {
-        message.channel.send("**Merci de mentionner un utilisateur à qui voler de l'argent !**")
+        return message.channel.send("**Merci de mentionner un utilisateur à qui voler de l'argent !**")
     }    
     if (author < 250) {
-        message.channel.send("**Désolé mais vous avez besoin de plus de 250$ pour voler qulqu'un !**");
+        return message.channel.send("**Désolé mais vous avez besoin de plus de 250$ pour voler qulqu'un !**");
     }
     
     if (targetuser < 0) {
-        message.channel.send("**Désolé mais la personne que vous éssayé de voler n'a pas un sou en poche !**");
+        return message.channel.send("**Désolé mais la personne que vous éssayé de voler n'a pas un sou en poche !**");
     }
     
     let timeout = 1800000;
