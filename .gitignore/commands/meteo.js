@@ -21,7 +21,7 @@ module.exports.run = async (client, message, args) => {
                 //Prévisions pour demain : **\nHaut: " + data.forecast[1].high + "°, Bas: " + data.forecast[1].low + "° " + data.forecast[1].skytextday + " avec " + data.forecast[1].precip + "% de chance de precipitation.");
             }
         });
-    }.catch(err) {
+    } catch(err) {
         console.log(err);
     }
 
