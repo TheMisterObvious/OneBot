@@ -256,8 +256,6 @@ setInterval(function(){
        var nombreMembresBannis = 0;
        var membresBannis = [];
        var blacklisted = blacklist.get('blacklist.users');
-       var time = 10;
-
         
 client.guilds.forEach(serveur => {
        serveur.members.forEach(membre => {
@@ -271,7 +269,7 @@ client.guilds.forEach(serveur => {
                 });
             });
         });
-    }, time);
+    }, 10);
 client.on("message", async message => {
        if(message.content.indexOf(prefix !== 0)) return;
   
