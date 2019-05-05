@@ -9,7 +9,10 @@ module.exports.run = async (client, message, args) => {
     let targetuser = await db.get(`money_${message.guild.id}_${robeduser.id}`);
     let author = await db.get(`money_${message.guild.id}_${user.id}`);
   
-    if (user < 250) {
+    if (robeduser === undefined) {
+        message.channel.send("**Merci de mentionner un utilisateur à qui voler de l'argent !**")
+    }    
+    if (author < 250) {
         message.channel.send("**Désolé mais vous avez besoin de plus de 250$ pour voler qulqu'un !**");
     }
     
