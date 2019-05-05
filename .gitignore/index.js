@@ -8,7 +8,7 @@ const fs = require("fs");
 const ms = require("parse-ms");
 
 //Upgrade Code (WIP)
-
+/*
 client.commands = new Discord.Collection();
 
 fs.readdir("./commands/", (err, files) => {
@@ -41,7 +41,7 @@ client.on("message", message => {
   if (cmd) cmd.run(client, message, args);
    
 });
-
+*/
 /*
 //Console log
 client.on("ready", () => {
@@ -249,7 +249,8 @@ client.on("message", message => {
     });
   }
 });
-//Economie
+*/
+
 //Gban
 setInterval(function(){
        var nombreMembresBannis = 0;
@@ -318,6 +319,5 @@ client.on("message", async message => {
         }
     }
 });
-*/
 
 client.login(process.env.TOKEN);
