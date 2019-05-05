@@ -36,7 +36,7 @@ module.exports.run = async (client, message, args) => {
     .setDescription("Vous avez volé "+ robamount +"$ à "+ robeduser)
     message.channel.send(embed)
     db.add(`money_${message.guild.id}_${user.id}`, robamount)
-    db.substract(`money_${message.guild.id}_${robeduser.id}`, robamount);
+    db.subtract(`money_${message.guild.id}_${robeduser.id}`, robamount);
 
 }
    
