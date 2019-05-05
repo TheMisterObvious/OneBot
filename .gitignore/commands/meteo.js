@@ -3,6 +3,7 @@ module.exports.run = async (client, message, args) => {
     const weather = require("weather-js");
 
     var location = args[0];
+    var unit = "C";
     
     try {
         weather.find({search: location, degreeType: unit}, function(err, data) {
@@ -13,7 +14,7 @@ module.exports.run = async (client, message, args) => {
                 data = data[0];
                 const embed = new Discord.RichEmbed()
                 .setAuthor("Météo de "+ data.location.name)
-                .addField("Maintenant :", data.current.temperature +"°C")
+                .addField("Maintenant :", data.current.temperature +"°"+ unit)
                 .addField("Skytext :", data.current.skytext +" ressentie")
                 .addField("Feelslike :", data.current.feelslike)
                 .addField("WindDisplay :", data.current.winddisplay + " Vent")
