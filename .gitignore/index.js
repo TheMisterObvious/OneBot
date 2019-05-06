@@ -6,6 +6,7 @@ const moment = require("moment");
 const weather = require("weather-js");
 const fs = require("fs");
 const ms = require("parse-ms");
+const 
 
 //Upgrade Code (WIP)
 
@@ -30,10 +31,15 @@ fs.readdir("./commands/", (err, files) => {
 
 client.on("message", message => {
   var prefix = "o!";
-  var sender = message.author;
+  var user = message.author;
   var msg = message.content.toUpperCase();
   var cont = message.content.slice(prefix.length).split(" ");
   var args = cont.slice(1);
+  const power = db.get(`power_${user.id}`);
+    
+  if (power === undefined) {
+      db.set(`power_${user.id}`, 0);
+  }
 
   if (!message.content.startsWith(prefix)) return;
 
