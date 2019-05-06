@@ -6,7 +6,6 @@ const moment = require("moment");
 const weather = require("weather-js");
 const fs = require("fs");
 const ms = require("parse-ms");
-const paste = require("pastebin-js");
 
 //Upgrade Code (WIP)
 
