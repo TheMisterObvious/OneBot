@@ -13,7 +13,6 @@
     "fs": "0.0.1-security",
     "moment": "^2.24.0",
     "parse-ms": "^2.1.0",
-    "pastebin-js": "^1.0.2",
     "quick.db": "^7.0.0-b22",
     "weather-js": "^2.0.0"
   },
