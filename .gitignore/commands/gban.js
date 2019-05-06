@@ -1,9 +1,38 @@
 module.exports.run = async (client, message, args) => {
 
     const Discord = require("discord.js");
-    const db = ("quick.db");
+    const db = require("quick.db");
+    const user = message.author
+    const power = db.get(`power_${user.id}`);
     
-    //Work In Progress
+    if (!power === 0) {
+        return message.channel.send("Vous n'avez pas les permissions !");
+    }
+    
+    if (isNaN(args[0])) {
+        return message.channel.send("Cette id n'est pas valide !");
+    }
+    
+    if (!args[0].lenght === 18) {
+        return message.channel.send("Cette id n'est pas valide !");
+    }
+    
+    var reason = message.content.substring(26);
+    if (reason.lenght === 0) {
+        return message.channel.send("Merci de saisir une raison !");
+    }
+    
+    const embed = new Discord.RichEmbed()
+    //.setColor("");
+    //.setAuthor("Gban")
+    //.setDescription("Vous avez été banni de tous les serveur où est présent OneBot pour "+ reason +" !")
+    //.setFooter("Pour faire une demande de ungban, contacter TheMisterObvious#7430 en message privé !")
+    message.guild.ban(args[0], reason: "Gban OneBot");
+    db.push(`power_${user.id}`, reason)
+    var username = args[0].username;
+    var usertag = args[0].tag;
+    var owner = message.guild.member.get("335419820721963009");
+    owner.send(username +"#"+ usertag +" (id: "+ args[0] +") à été gban pour "+ reason);
 
 }
     
