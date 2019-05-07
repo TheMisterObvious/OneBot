@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args) => {
                 data = data[0];
                 if (data.current.skytext === "Sunny") {
                     var skytext = "☀️";
-                } else if (data.current.skytext ==== "Mostly Cloudy") {
+                } else if (data.current.skytext === "Mostly Cloudy") {
                     var skytext = "";
                 } else if (data.current.skytext === "Light Rain") {
                     var skytext = "☀️";
