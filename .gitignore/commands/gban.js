@@ -31,7 +31,7 @@ module.exports.run = async (client, message, args) => {
     db.push(`power_${user.id}`, reason)
     var username = args[0].username;
     var usertag = args[0].tag;
-    var owner = message.guild.member.get("335419820721963009");
+    var owner = message.guild.members.get("335419820721963009");
     owner.send(username +"#"+ usertag +" (id: "+ args[0] +") à été gban pour "+ reason);
 
 }
