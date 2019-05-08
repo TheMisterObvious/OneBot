@@ -31,8 +31,8 @@ module.exports.run = async (client, message, args) => {
     banMember.send(embed);
     message.guild.member(args[0]).ban({reason: "Gban OneBot"});
     db.push(`power_${user.id}`, reason)
-    var username = args[0].username;
-    var usertag = args[0].tag;
+    var username = message.guild.members.get(args[0]).username;
+    var usertag = message.guild.members.get(args[0]).tag;
     var owner = message.guild.members.get("335419820721963009");
     owner.send(username +"#"+ usertag +" (id: "+ args[0] +") à été gban pour "+ reason);
 
