@@ -23,10 +23,12 @@ module.exports.run = async (client, message, args) => {
     }
     
     const embed = new Discord.RichEmbed()
-    //.setColor("");
-    //.setAuthor("Gban")
-    //.setDescription("Vous avez été banni de tous les serveur où est présent OneBot pour "+ reason +" !")
-    //.setFooter("Pour faire une demande de ungban, contacter TheMisterObvious#7430 en message privé !")
+    .setColor("0xff0000")
+    .setAuthor("Gban")
+    .setDescription("Vous avez été banni de tous les serveur où est présent OneBot pour "+ reason +" !")
+    .setFooter("Pour faire une demande de ungban, contacter TheMisterObvious#7430 en message privé !")
+    var banMember = message.guild.members.get(args[0]);
+    banMember.send(embed);
     message.guild.member(args[0]).ban({reason: "Gban OneBot"});
     db.push(`power_${user.id}`, reason)
     var username = args[0].username;
