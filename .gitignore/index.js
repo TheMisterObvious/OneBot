@@ -40,6 +40,10 @@ client.on("message", message => {
       db.set(`power_${user.id}`, 0);
   }
 
+if (message.content.startsWith(prefix +"say")) {
+    message.channel.send(message.content.substring(6);
+}
+
   if (!message.content.startsWith(prefix)) return;
 
   var cmd = client.commands.get(cont[0]);
