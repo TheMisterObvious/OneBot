@@ -41,7 +41,7 @@ client.on("message", message => {
   }
 
 if (message.content.startsWith("o!say")) {
-    message.channel.send(message.content.substring(6);
+    message.channel.send(message.content.substring(6));
 }
 
   if (!message.content.startsWith(prefix)) return;
