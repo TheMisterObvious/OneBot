@@ -55,7 +55,6 @@ client.sendMessage = function(channel, message, temp = false) {
     return channel.send({embeds: [new MessageEmbed().setDescription(message).setColor("#0072FF")], ephemeral: temp})
 }
 
-client.config = require("./data/config.json")
 client.lang = require("./data/lang.json")
 client.perm = require("./classes/perm.js")
 

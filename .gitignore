@@ -1,9 +1,10 @@
 node_modules
 logs
 old
+src/api
 package-lock.json
 .env
-.gitignore
 .gitattributes
 nekosama.png
 database.json
+animeDB.js
