@@ -1,0 +1,561 @@
+const Discord = require("discord.js")
+const { MessageButton, MessageActionRow } = require("discord-buttons")
+
+exports.run = async(client, message, args) => {
+
+    /* Assignements for all the buttons */
+
+    const playlistFirst = new MessageButton()
+    .setStyle("grey")
+    .setLabel("1️⃣")
+    .setID("playlist_first")
+
+    const playlistSecond = new MessageButton()
+    .setStyle("grey")
+    .setLabel("2️⃣")
+    .setID("playlist_second")
+
+    const playlistThird = new MessageButton()
+    .setStyle("grey")
+    .setLabel("3️⃣")
+    .setID("playlist_third")
+
+    const playlistFourth = new MessageButton()
+    .setStyle("grey")
+    .setLabel("4️⃣")
+    .setID("playlist_fourth")
+
+    const playlistMainPreviousPage = new MessageButton()
+    .setStyle("blurple")
+    .setLabel("⬅️")
+    .setID("playlist_mainprevious")
+
+    const playlistMainNextPage = new MessageButton()
+    .setStyle("blurple")
+    .setLabel("➡️")
+    .setID("playlist_mainnext")
+
+    const playlistCreate = new MessageButton()
+    .setStyle("green")
+    .setLabel("➕")
+    .setID("playlist_create")
+
+    const playlistDelete = new MessageButton()
+    .setStyle("red")
+    .setLabel("➖")
+    .setID("playlist_delete")
+
+    const playlistPreviousPage = playlistMainPreviousPage.setID("playlist_previous")
+
+    const playlistNextPage = playlistMainNextPage.setID("playlist_next")
+
+    const playlistAddMusic = playlistCreate.setID("playlist_addmusic")
+
+    const playlistRemoveMusic = playlistDelete.setID("playlist_removemusic")
+
+    const playlistSearch = new MessageButton()
+    .setStyle("grey")
+    .setLabel("🔍")
+    .setID("playlist_search")
+
+    const playlistVisibility = new MessageButton()
+    .setStyle("grey")
+    .setID("playlist_visibility")
+
+    const playlistCopy = new MessageButton()
+    .setStyle("grey")
+    .setLabel("📃")
+    .setID("playlist_copy")
+    .setDisabled(true)
+
+    const playlistNowCopy = playlistCopy.setID("playlist_nowcopy")
+
+    const playlistBack = new MessageButton()
+    .setStyle("blurple")
+    .setLabel("🔙")
+    .setID("playlist_back")
+
+    const playlistNowDelete = new MessageButton()
+    .setStyle("red")
+    .setLabel("🚫")
+    .setID("playlist_nowdelete")
+    .setDisabled(true)
+
+    const playlistSearchPreviousPage = playlistMainPreviousPage.setID("playlist_searchprevious")
+
+    const playlistSearchNextPage = playlistMainNextPage.setID("playlist_searchnext")
+
+    const playlistSearchFirst = playlistFirst.setID("playlist_searchfirst")
+
+    const playlistSearchSecond = playlistSecond.setID("playlist_searchsecond")
+
+    const playlistSearchThird = playlistThird.setID("playlist_searchthird")
+
+    const playlistSearchFourth = playlistFourth.setID("playlist_searchfourth")
+
+    const playlistSearchBack = playlistBack.setID("playlist_searchback")
+
+    const playlistSearchUser = new MessageButton()
+    .setStyle("blurple")
+    .setLabel("👤")
+    .setID("playlist_searchuser")
+
+    /* ActionRow from buttons */
+
+    const mainMenuPlaylists = new MessageActionRow()
+    .addComponent(playlistMainPreviousPage)
+    .addComponent(playlistMainNextPage)
+    .addComponent(playlistCreate)
+    .addComponent(playlistDelete)
+    .addComponent(playlistSearch)
+
+    const managePlaylist1 = new MessageActionRow()
+    .addComponent(playlistPreviousPage)
+    .addComponent(playlistNextPage)
+    .addComponent(playlistAddMusic)
+    .addComponent(playlistRemoveMusic)
+
+    const emojisVisibilityTab = {
+        "private": "🔒",
+        "unlisted": "🔗",
+        "public": "🌍"
+    }
+
+    const author = message.author || message.clicker.member.user
+    const whereSend = message.channel || message.message.channel
+
+    const serverQueue = client.player.getQueue(message)
+
+    const playlists = client.db.get(author.id, "Playlist")
+    const playlistsNames = Object.keys(playlists) || undefined
+
+    function Success(successMessage) {
+        return whereSend.send(new Discord.MessageEmbed().setDescription(`✅ ${successMessage}`))
+    }
+
+    function Error(errorMessage) {
+        return whereSend(new Discord.MessageEmbed().setDescription(`❌ ${errorMessage}`))
+    }
+    
+    async function askingArgs(askingTitle, askingDesc, askingImage, askingError) {         
+
+        if (!askingError || (!askingTitle && !askingDesc)) return console.log("Il me faut au moins un titre ou une description et obligatoirement une erreur !")
+
+        const askingEmbed = new Discord.MessageEmbed()
+        if (askingTitle) askingEmbed.setTitle(askingTitle)
+        if (askingDesc) askingEmbed.setDescription(askingDesc)
+        if (askingImage) askingEmbed.setImage(askingImage)
+
+        return new Promise(async (resolver) => {
+            msgTab = []
+            if (message.author) whereSend.send(askingEmbed)
+            else {
+                for (const msg of message.channel.messages.cache) if (msg[1].author === client.user) msgTab.push(msg[1])
+                whereSend.messages.cache.get(msgTab.reverse()[0].id).edit(askingEmbed)
+            }
+            await whereSend.awaitMessages(response => response.author.id === author.id, {
+                max: 1,
+                time: 10000,
+                errors: ["time"],
+            }).then(async collected => {
+                resolver(collected.first().content.split(" "))
+            }).catch((error) => {
+                console.log(error)
+                Error(askingError)
+            })
+        })
+        
+    }
+
+    switch(args[0]?.toLowerCase()) {
+
+        case "display":
+
+            const playlistsEmbed = new Discord.MessageEmbed()
+            .setColor("0072FF")
+            .setTitle("__Vos playlists:__")
+
+            if (!args[1] || !isNaN(args[1])) {
+
+                if (!playlists || !Object.keys(playlists)[0]) {
+                    playlistsEmbed.setDescription("Vous n'avez aucune playlist !")
+                    if (message.author) whereSend.send("", {embed: playlistsEmbed, components: [playlistCreate, playlistDelete]})
+                    else message.message.edit("", {embed: playlistsEmbed, components: [playlistCreate, playlistDelete]})
+                    break
+                }
+
+                const pageAsked = Math.floor(args[1])
+
+                const playlistPerPage = 4
+                const lastPage = Math.ceil(playlistsNames.length/playlistPerPage)
+
+                if (!pageAsked || isNaN(pageAsked) || pageAsked <= 1 || pageAsked > lastPage) var page = 1
+                else var page = pageAsked
+
+                const pagePlaylistList = playlistsNames.slice((page-1)*playlistPerPage, (page-1)*playlistPerPage+playlistPerPage)
+                for (const playlistName of pagePlaylistList) {
+                    const musicsInPlaylist = Object.keys(client.db.get(author.id, `Playlist.${playlistName}`)).length
+                    const visibility = emojisVisibilityTab[client.db.get("PlaylistsVisibility",`${author.id}-${playlistName}`)[0]]
+                    playlistsEmbed.addField(`• ${playlistName} - ${visibility}`, `${musicsInPlaylist} titres dans cette playlist`)
+                }
+
+                playlistsEmbed.setFooter(`Page ${page}/${lastPage} | nombre de playlists: ${playlistsNames.length}`, author.avatarURL())
+
+                const playlistsDisplayedLength = pagePlaylistList.length
+
+                if (playlistsDisplayedLength < 4)  playlistFourth.setDisabled(true)
+                if (playlistsDisplayedLength < 3)  playlistThird.setDisabled(true)
+                if (playlistsDisplayedLength < 2)  playlistSecond.setDisabled(true)
+
+                const displayPlaylist = new MessageActionRow()
+                .addComponent(playlistFirst)
+                .addComponent(playlistSecond)
+                .addComponent(playlistThird)
+                .addComponent(playlistFourth)
+                .addComponent(playlistCopy)
+
+                if (message.author) whereSend.send("", {embed: playlistsEmbed, components: [mainMenuPlaylists, displayPlaylist]})
+                else message.message.edit("", {embed: playlistsEmbed, components: [mainMenuPlaylists, displayPlaylist]})
+
+            } else {
+
+                const playlistToDisplay = playlistsNames.map(playlistName => { if (playlistName.toLowerCase() === args[1].toLowerCase()) return playlistName }).filter(Boolean)[0]
+
+                if (!playlistToDisplay) return message.channel.send(`Vous n'avez pas de playlist nommé ${args[1]}`)
+
+                const pageAsked = Math.floor(args[2])
+                const playlistToDisplayDB = client.db.get(author.id, `Playlist.${playlistToDisplay}`)
+
+                const musicPerPage = 8
+                const lastPage = Math.ceil(Object.keys(playlistToDisplayDB).length/musicPerPage)
+
+                if (!pageAsked || isNaN(pageAsked) || pageAsked <= 1 || pageAsked > lastPage) var page = 1
+                else var page = pageAsked
+
+                var embeddesc = ""
+                const pageMusicList = Object.keys(playlistToDisplayDB).slice((page-1)*musicPerPage, (page-1)*musicPerPage+musicPerPage)
+                for (const musicIndex of pageMusicList) {
+                    const musicToDisplay = playlistToDisplayDB[musicIndex]
+                    embeddesc += `[${Number(musicIndex) + 1}] • **[${musicToDisplay.title}](${musicToDisplay.url})**\n__Auteur:__ ${musicToDisplay.author} - __Durée:__ ${musicToDisplay.duration}\n\n`
+                }
+
+                if (!pageMusicList[0]) embeddesc = "Vous n'avez aucune musique dans cette playlist playlist !"
+
+                playlistsEmbed.setDescription(embeddesc)
+                playlistsEmbed.setTitle(`Musiques de la playlist __${playlistToDisplay}__:`)
+                playlistsEmbed.setFooter(`Page ${page}/${lastPage} | Durée de la playlist: wip`, author.avatarURL())
+
+                playlistVisibility.setLabel(emojisVisibilityTab[client.db.get("PlaylistsVisibility",`${author.id}-${playlistToDisplay}`)[0]])
+
+                const managePlaylist2 = new MessageActionRow()
+                .addComponent(playlistBack)
+                .addComponent(playlistVisibility)
+                .addComponent(playlistNowCopy)
+                .addComponent(playlistNowDelete)
+
+                if (message.author) whereSend.send("", {embed: playlistsEmbed, components: [managePlaylist1, managePlaylist2]})
+                else message.message.edit("", {embed: playlistsEmbed, components: [managePlaylist1, managePlaylist2]})
+
+            }
+
+            break
+
+        case "create":
+
+            /* Assigned args[1] to playlistCreatedName or ask for this argument if its undefined */
+            const playlistCreatedName = args[1] || await askingArgs("Quelle nom voulez vous donner à votre playlist ?", "En un mot seulement (les caractères comme - _ / ? etc... sont autorisés.", undefined, "Votre playlist n'a pas pu être créé !").then(asked => { playlistCreatedName = asked[0] })
+            
+            /* Checking if the playlist name to create already exist and return an error if this case */
+            var playlistToCreate
+            if (playlists) playlistToCreate = playlistsNames.map(playlistName => playlistName.toLowerCase() === playlistCreatedName?.toLowerCase()).filter(true)[0]
+
+            if (!playlistToCreate) Error(`Vous avez déjà une playlist nommé ${playlistCreatedName}`)
+            
+            /* Created the playlist in the user's database and set his visibility to private by default */
+            client.db.set(author.id, {}, `Playlist.${playlistToCreate}`)
+            client.db.set("PlaylistsVisibility", ["private", author.tag], `${author.id}-${playlistToCreate}`)
+            
+            /* Return a success message and bring back the user to the playlist display */
+            Success(`Playlist créé sous le nom **${playlistToCreate}**`)
+            this.run(client, message, ["display"])
+
+            break
+
+        case "delete": //Delete playlist
+
+            var playlistDeletedName
+            if (!args[1]) await askingArgs("Quelle playlist voulez vous supprimer ?", undefined, undefined, "Votre playlist n'a pas pu être supprimé !").then(asked => { playlistDeletedName = asked[0] })
+            else playlistDeletedName = args[1]
+
+            var playlistToDelete
+            for (const playlistName of playlistsNames) {
+                if (playlistName.toLowerCase() === playlistDeletedName?.toLowerCase()) playlistToDelete = playlistName
+            }
+            
+            if (!playlistToDelete) return Success(`Vous n'avez pas de playlist nommé **${playlistDeletedName}**`)
+            else {
+                whereSend.send(new Discord.MessageEmbed().setDescription(`Êtes vous sure de vouloir supprimer la playlist **${playlistDeletedName}** ?`))
+                await whereSend.awaitMessages(response => response.author.id === author.id, {
+                    max: 1,
+                    time: 10000,
+                    errors: ['time'],
+                })
+                .then(collected => {
+                    if (collected.first().content.toLowerCase() === "oui") {
+                        client.db.delete(author.id, `Playlist.${playlistToDelete}`)
+                        client.db.delete("PlaylistsVisibility", `${author.id}-${playlistToDelete}`)
+                        Success(`La playlist **${playlistToDelete}** à bien été supprimer`)
+                        this.run(client, message, ["display"])
+                    }
+                    if (collected.first().content.toLowerCase() === "non") {
+                        Error(`Votre playlist n'a pas été supprimé`)
+                    }
+                }).catch(() => {
+                    Error(`Votre playlist n'a pas été supprimé`)
+                })
+            }
+
+            break
+
+        case "add-music":
+
+            var playlistWhereAdd
+            if (!args[1]) await askingArgs("Dans quelle playlist voulez vous ajouter une musique ?", undefined, undefined, "Vous ne m'avez pas donné de nom de playlist.").then(asked => { playlistWhereAdd = asked[0] })
+            else var playlistWhereAdd = args[1]
+
+            if (!playlistsNames.map(obj => obj.toLowerCase()).includes(playlistWhereAdd.toLowerCase())) return Error(`Vous n'avez pas de playlist nommé ${playlistWhereRemove}`)
+
+            var musicToAdd
+            if (!args[2]) await askingArgs(`Quelle musique voulez vous ajouter à la playlist ${playlistWhereAdd} ?`, "Seul une recherche de musique, un lien, l'argument -nowPlaying ou l'argument -allQueue peut être accepté, les liens de playlist ne sont pas acceptable pour le moment...", undefined, "J'ai annulé votre recherche.").then(asked => { musicToAdd = asked.join(" ") })
+            else var musicToAdd = args.slice(2).join(" ")
+
+            if (musicToAdd.toLowerCase() === "-nowplaying") {
+                if (!serverQueue) return Error("Il n'y a pas de musique entrain d'être joué actuellement")
+                
+                const nowPlaying = serverQueue.tracks[0]
+
+                client.db.set(author.id, nowPlaying, `Playlist.${playlistWhereAdd}.${Object.keys(client.db.get(author.id, `Playlist.${playlistWhereAdd}`)).length}`)
+                Success(`__${nowPlaying.title}__ a bien été ajouté à la playlist **${playlistWhereAdd}**`)
+                this.run(client, message, ["display"])
+            
+            } else if (musicToAdd.toLowerCase() === "-allqueue") {
+
+                if (!serverQueue) return Error("Il n'a pas de musique entrain d'être joué actuellement")
+                
+                const serverQueueTracks = serverQueue.tracks
+                for (const musicQueue of serverQueueTracks) {
+                    client.db.set(author.id, musicQueue, `Playlist.${playlistWhereAdd}.${Object.keys(client.db.get(author.id, `Playlist.${playlistWhereAdd}`)).length}`)
+                }
+                Success(`${serverQueueTracks.length} titres ont bien été ajoutés à la playlist **${playlistWhereAdd}**`)
+                this.run(client, message, ["display"])
+            
+            } else {
+                client.playerUtil.ytSearch(musicToAdd, {limit: 4}).then(async result => {
+                    if (!result[0]) return Error("Désolé je n'ai pas trouvé de musique correspondant à votre recherche")
+                    var confirmation
+                    await askingArgs("Est-ce bien ce titre ?", `__Titre:__ ${result[0].title}\n__Auteur:__ ${result[0].author}`, result[0].thumbnail, "Ajout de musique annulé.").then(asked => { confirmation = asked[0].toLowerCase() })
+                    if (confirmation === "oui") {
+                        client.db.set(author.id, result[0], `Playlist.${playlistWhereAdd}.${Object.keys(client.db.get(author.id, `Playlist.${playlistWhereAdd}`)).length}`)
+                        Success(`__${result[0].title}__ a bien été ajouté à la playlist **${playlistWhereAdd}**`)
+                        this.run(client, message, ["display"])
+                    }
+                    if (confirmation === "non") {
+                        var confirmationMultiple
+                        await askingArgs("Est-ce l'un de ces titres ? Si oui, lequel ?", `**Titre 1 (répondez 1)**\n__Titre:__ ${result[1].title}\n__Auteur:__ ${result[1].author}\n\n**Titre 2 (répondez 2)**\n__Titre:__ ${result[2].title}\n__Auteur:__ ${result[2].author}\n\n**Titre 3 (répondez 3)**\n__Titre:__ ${result[3].title}\n__Auteur:__ ${result[3].author}`, undefined, "Ajout de musique annulé.").then(asked => { confirmationMultiple = asked[0] })
+                        if (confirmationMultiple.toLowerCase() === "non") return Error("Désolé je n'ai pas pu vous aider 😢, essayez de changer d'éléments de recherches...")
+                        if (confirmationMultiple === "1" || "2" || "3") {
+                            client.db.set(author.id, result[confirmationMultiple], `Playlist.${playlistWhereAdd}.${Object.keys(client.db.get(author.id, `Playlist.${playlistWhereAdd}`)).length}`)
+                            Success(`__${result[confirmationMultiple].title}__ a bien été ajouté à la playlist **${playlistWhereAdd}**`)
+                            this.run(client, message, ["display"])
+                        }
+                    }
+                })
+            }
+            break
+
+        case "remove-music":
+
+            var playlistWhereRemove
+            if (!args[1]) await askingArgs("Dans quelle playlist voulez vous ajouter une musique ?", undefined, undefined, "Vous ne m'avez pas donné de nom de playlist.").then(asked => { playlistWhereRemove = asked[0] })
+            else playlistWhereRemove = args[1]
+
+            if (!playlistsNames.map(obj => obj.toLowerCase()).includes(playlistWhereRemove.toLowerCase())) return Error(`Vous n'avez pas playlist nommé ${playlistWhereRemove}`)
+            
+            var musicToRemove
+            if (!args[2]) await askingArgs("Quelle est l'id/nom de la musique que vousvoulez supprimer de votre playlist ?", undefined, undefined, "Supression de la musique annulé.").then(asked => { musicToRemove = asked.join(" ") })
+            else musicToRemove = args.slice(2).join(" ")
+
+            const playlistToRemoveData = client.db.get(author.id, `Playlist.${playlistWhereRemove}`) 
+
+            if (isNaN(musicToRemove)) {
+                var musicDelete
+                for (const music of Object.values(playlistToRemoveData)) {
+                    if (music.title.toLowerCase().includes(musicToRemove.toLowerCase())) musicDelete = music
+                }
+
+                if (!musicDelete) return Error(`Vous n'avez pas de musique nommé ${musicToRemove} dans cette playlist.`)
+                
+                const index = Object.keys(playlistToRemoveData).find(key => client.db.get(author.id, `Playlist.${playlistWhereRemove}.${key}`) === musicDelete)
+
+                var confirmationDelete
+                await askingArgs(`Voulez vous vraiment supprimer __${musicDelete.title}__ de la playlist **${playlistWhereRemove}**`, undefined, undefined, "Supression de la musique annulé.").then(asked => { confirmationDelete = asked[0].toLowerCase() })
+                
+                if (confirmationDelete === "non") return Error("Suppression annulé...")
+                if (confirmationDelete === "oui") {
+                    client.db.delete(author.id, `Playlist.${playlistWhereRemove}.${index}`)
+                    for (const musicIndex of Object.keys(playlistToRemoveData)) {
+                        if (musicIndex > index) {
+                            client.db.set(author.id, playlistToRemoveData[musicIndex], `Playlist.${playlistWhereRemove}.${Number(musicIndex) - 1}`)
+                            client.db.delete(author.id, `Playlist.${playlistWhereRemove}.${musicIndex}`)
+                        }
+                    }                         
+                    Success(`__${musicDelete.title}__ a bien été supprimer de la playlist **${playlistWhereRemove}**`)
+                    this.run(client, message, ["display"])
+                }
+            } else {
+                const indexToDelete = Number(args[1]) - 1
+                if (!playlistToRemoveData[indexToDelete]) Error(`Vous n'avez pas de musique avec l'id ${musicToRemove} dans cette playlist`)
+                else {
+                    const music = playlistToRemoveData[indexToDelete]
+
+                    var confirmationDelete
+                    await askingArgs(`Voulez vous vraiment supprimer __${music.title}__ de la playlist **${playlistWhereRemove}**`, undefined, undefined, "Supression de la musique annulé.").then(asked => { confirmationDelete = asked[0].toLowerCase() })
+                
+                    if (confirmationDelete === "non") Error("Suppression annulé...")
+                    if (confirmationDelete === "oui") {
+                        client.db.delete(message.author.id, `Playlist.${playlistWhereRemove}.${indexToDelete}`)
+                        for (const musicIndex in playlistToRemoveData) {
+                            if (musicIndex > indexToDelete) {
+                                client.db.set(message.author.id, playlistToRemoveData[musicIndex], `Playlist.${playlistWhereRemove}.${Number(musicIndex) - 1}`)
+                                client.db.delete(message.author.id, `Playlist.${playlistWhereRemove}.${musicIndex}`)
+                            }
+                        }                         
+                        Success(`__${music.title}__ a bien été supprimer de la playlist **${playlistWhereRemove}**`)
+                        this.run(client, message, ["display"])
+                    }
+                }
+            }
+            break
+
+        case "visibility":
+
+            var playlistToEdit
+            if (!args[1]) await askingArgs("De quelle playlist voulez vous changer la visibilité ?", undefined, undefined, "Vous ne m'avez pas donné de nom de playlist.").then(asked => { confirmation = asked[0] })
+            else playlistToEdit = args[1]
+            
+            if (!playlistToEdit) return
+            if (!playlistsNames.map(obj => obj.toLowerCase()).includes(playlistToEdit.toLowerCase())) return Error(`Vous n'avez pas playlist nommé ${playlistToEdit}`)
+            
+            if (!args[2] || args[2] !== "public" || "unlisted" || "private") {
+                var playlistNewVisibility
+                if (message.author) await askingArgs("Quelle visibilité voulez vous assigner à cette playlist ?", "les seules réponses possibles sont `public`, `unlisted` ou `private`.", undefined, "Vous ne m'avez pas donné de paramètre de visibilité.").then(asked => { confirmation = asked[0] })
+                else {
+                    var playlistNowVisibility = client.db.get("PlaylistsVisibility", `${author.id}-${playlistToEdit}`)[0]
+                    if (playlistNowVisibility === undefined) playlistNewVisibility = "private"
+                    if (playlistNowVisibility === "public") playlistNewVisibility = "private"
+                    if (playlistNowVisibility === "unlisted") playlistNewVisibility = "public"
+                    if (playlistNowVisibility === "private") playlistNewVisibility = "unlisted"
+                }
+
+                client.db.set("PlaylistsVisibility", [playlistNewVisibility, author.tag], `${author.id}-${playlistToEdit}`)
+                if (!message.author) {
+                    playlistVisibility.setLabel(emojisVisibilityTab[playlistNewVisibility])
+                    const managePlaylist2 = new MessageActionRow()
+                    .addComponent(playlistBack)
+                    .addComponent(playlistVisibility)
+                    .addComponent(playlistNowCopy)
+                    .addComponent(playlistNowDelete)
+                    message.message.edit("", {embed: message.message.embeds[0], components: [managePlaylist1, managePlaylist2]})
+                }
+            } else {
+
+                if (message.author) { 
+                    client.db.set("PlaylistsVisibility", [playlistNewVisibility, author.tag], `${author.id}-${playlistToEdit}`)
+                
+                    Success(`La playlist ${playlistToEdit} à bien été passé en ${playlistNewVisibility}`)
+                }
+
+            }
+
+            break
+
+        case "search":
+
+            const playlistsPublic = new Discord.MessageEmbed()
+            .setColor("0072FF")
+            .setTitle(`__${emojisVisibilityTab["public"]} Playlists publiques:__`)
+
+            if (!args[1] || (!isNaN(args[1]) && args[1].length < 18)) {
+
+                searchTab = []
+                for (const playlistId of Object.keys(client.db.get("PlaylistsVisibility"))) {
+                    const value = client.db.get("PlaylistsVisibility", playlistId)
+                    if (value[0] === "public") searchTab.push(playlistId)
+                }
+
+                const pageAsked = Math.floor(args[2])
+
+                const searchPerPage = 6
+                const lastPage = Math.ceil(searchTab.length/searchPerPage)
+
+                if (!pageAsked || isNaN(pageAsked) || pageAsked <= 1 || pageAsked > lastPage) var page = 1
+                else var page = pageAsked
+
+                const searchPlaylist = searchTab.slice((page-1)*searchPerPage, (page-1)*searchPerPage+searchPerPage)
+                for (const publicPlaylistId of searchPlaylist) {
+                    const playlistOwnerId = publicPlaylistId.slice(0, 18)
+                    const publicPlaylistName = publicPlaylistId.slice(19, publicPlaylistId.length)
+
+                    const musicsInPlaylist = Object.keys(client.db.get(playlistOwnerId, `Playlist.${publicPlaylistName}`)).length
+                    
+                    playlistsPublic.addField(`• ${publicPlaylistName} - 👤: ${client.db.get("PlaylistsVisibility", publicPlaylistId)[1]}`, `${musicsInPlaylist} titres dans cette playlist | id: ${publicPlaylistId}`)
+                }
+
+                if (searchTab.length === 0) playlistsPublic.setDescription("Il n'y a pas de playlist publique.")
+
+                playlistsPublic.setFooter(`Page ${page}/${lastPage} | nombre de playlists publiques: ${searchTab.length}`, author.avatarURL())
+
+                const playlistsSearchedLength = searchPlaylist.length
+
+                if (playlistsSearchedLength < 4)  playlistSearchFourth.setDisabled(true)
+                if (playlistsSearchedLength < 3)  playlistSearchThird.setDisabled(true)
+                if (playlistsSearchedLength < 2)  playlistSearchSecond.setDisabled(true)
+
+                const displaySearchedPlaylist1 = new MessageActionRow()
+                .addComponent(playlistSearchPreviousPage)
+                .addComponent(playlistSearchNextPage)
+                .addComponent(playlistSearchBack)
+                .addComponent(playlistSearchUser)
+
+                const displaySearchedPlaylist2 = new MessageActionRow()
+                .addComponent(playlistSearchFirst)
+                .addComponent(playlistSearchSecond)
+                .addComponent(playlistSearchThird)
+                .addComponent(playlistSearchFourth)
+
+                if (message.author) whereSend.send("", {embed: playlistsPublic, components: [displaySearchedPlaylist1, displaySearchedPlaylist2]})
+                else message.message.edit("", {embed: playlistsPublic, components: [displaySearchedPlaylist1, displaySearchedPlaylist2]})
+                
+            }
+
+            break
+
+        case "copy":
+
+            break
+
+        default:
+
+            this.run(client, message, ["display"])
+            break
+
+    }
+}
+
+
+exports.config = {
+    description: "[Musique] - Tout un système de playlist directement sur discord, plus besoin d'aller chercher le lien de votre playlist youtube ou spotify ou encore de regarder quelle est le titre de la musique que vous écouter et d'aller l'ajouter manuellement sur votre playlist à vous.",
+    template: "playlist [action] [paramètres...] [...] [...]",
+    permission: "@everyone",
+    aliases: ["pl", "playlists"]
+}

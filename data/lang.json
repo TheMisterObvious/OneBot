@@ -1,0 +1,361 @@
+{
+    
+    "en": {
+        "percentage": "0%",
+        "content": {
+            "messageCreate": {
+                "disableCmd": {
+                    "1": "The ",
+                    "2": " command is disable on this server !"
+                },
+                "devCmd": "This command is under development or on rework, you don't have access to it.",
+                "noPermission": "You don't have the permission to do that command !"
+            },
+            "songAdd": {
+                "title": "Song added to queue.",
+                "footer": "Requested by"
+            },
+            "songFirst": {
+                "title":"Now playing",
+                "desc": {
+                    "1": "Author",
+                    "2": "Duration",
+                    "3": "Url"
+                },
+                "footer": "Requested by"
+            },
+            "songChanged": {
+                "title":"Now playing",
+                "desc": {
+                    "1": "Author",
+                    "2": "Duration",
+                    "3": "Url"
+                },
+                "footer": "Requested by"
+            },
+            "playlistAdd": {
+                "title": "Playlist added",
+                "desc": {
+                    "1": "Author",
+                    "2": "Duration",
+                    "3": "Tracks",
+                    "4": "Url"
+                },
+                "footer": "Requested by"
+            },
+            "back": {},
+            "clear": {},
+            "disconnect": {},
+            "jump": {},
+            "lyrics": {},
+            "nowplaying": {},
+            "pause": {},
+            "ping": {},
+            "play": {
+                "notInVoice": "You're not in a voice channel !",
+                "notInSameVoice": "You're not in the same voice channel as me !",
+                "noArgs0": "Tell me which music you want me to play !",
+                "noPermissionToJoin": "I don't have the permissions to join your voice channel !",
+                "musicNotFound": {
+                    "1": "❌ | The music",
+                    "2": "could not be found !"
+                },
+                "playlistNotFound": {
+                    "1": "❌ | The playlist",
+                    "2": "could not be found !"
+                }
+            },
+            "queue": {
+                "queueEmpty": "The queue is empty !",
+                "tooLong": "Too long, you'll die before it ends",
+                "embed": {
+                    "title": "Music list",
+                    "footer": {
+                        "1": "Page",
+                        "2": "Duration of the queue"
+                    }
+                }
+            },
+            "repeat": {
+                "queueEmpty": "The music queue is empty !",
+                "notInVoice": "You're not in a voice channel !",
+                "notInSameVoice": "You're not in the same voice channel as me !",
+                "repeatOn": {
+                    "1": "I will now play",
+                    "2": "in loop !"
+                },
+                "repeatOff": "I will no longer play in loop !"
+            },
+            "settings": {},
+            "shuffle": {},
+            "skip": {},
+            "test": {},
+            "help": {
+                "helpEmbed": {
+                    "desc": {
+                        "1": "Description:",
+                        "2": "Options:",
+                        "3": "Subcommands:",
+                        "4": "Aliases:",
+                        "5": "Permission required:",
+                        "6": "Type:",
+                        "7": "Commands:"
+                    },
+                    "footer": "Help requested by",
+                    "commandTypes": {
+                        "1": "Group",
+                        "2": "Command",
+                        "3": "Subcommand",
+                        "4": "Option"
+                    }
+                },
+                "noCmds": "Vous n'avez accès à aucune commande.",
+                "title": "Voici la liste des commandes:",
+                "footer": {
+                    "1": "Page",
+                    "2": "Help requested by"
+                },
+                "selectmenu": "Choose for more information.",
+                "commands": {
+                    "anime": {
+                        "description": "Search anime on neko-sama and go watch them.",
+                        "subcommands": {
+                            "search": {
+                                "description": "Search anime on neko-sama.",
+                                "options": {
+                                    "anime-name": "The name of the anime you want to search."
+                                }
+                            },
+                            "mylist": {
+                                "description": "See your anime list.",
+                                "options": {
+                                    "mylist-page": "The page you want to see."
+                                }
+                            },
+                            "settings": {
+                                "description": "Change your settings.",
+                                "subcommands": {
+                                    "dub": {
+                                        "description": "Change the default dub of you searches."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "help":  {
+                        "description": "Show the bot's commands.",
+                        "options": {
+                            "page-number": "Number of the wanted page.",
+                            "command-name": "Name of the command.",
+                            "command-aliase": "Aliase of the command.",
+                            "command-group": "Group of commands."
+                        },
+                        "subcommands": {
+                            "groups": {
+                                "description": "Show the command's groups.",
+                                "options": {}
+                            }
+                        }
+                    },
+                    "ping": {
+                        "description": "Show the bot lantecy."
+                    },
+                    "passcheck": {
+                        "description": "Hmmm, interesting, what's that ?."
+                    },
+                    "test": {
+                        "description": "Big, flappy, messy mystery."
+                    },
+                    "play": {
+                        "description": "Play a song or playlist."
+                    },
+                    "repeat": {
+                        "description": "Repeat the current song of the queue."
+                    }
+                },
+                "titleGroup": "Group",
+                "groups": {
+                    "dev": "Development commands.",
+                    "music": "Music commands.",
+                    "others": "Miscellaneous commands."
+                }
+            }
+        }
+    },
+
+    "fr": {
+        "percentage": "100%",
+        "content": {
+            "messageCreate": {
+                "disableCmd": {
+                    "1": "La commande `",
+                    "2": "` est désactivé sur ce serveur !"
+                },
+                "devCmd": "Cette commande est en développement ou en refonte, seulement le propriétaire du bot y a accès.",
+                "noPermission": "Vous n'avez pas la permission de faire cette commande !"
+            },
+            "trackAdd": {
+                "title": "Ajout à la file.",
+                "plDesc": {
+                    "1": "Ajout de **",
+                    "2": "** titres à la file depuis la playlist "
+                },
+                "footer": "Demandé par "
+            },
+            "trackStart": {
+                "title": "Lecture en cours...",
+                "fields": {
+                    "1": "Auteur",
+                    "2": "Durée",
+                    "3": "Url"
+                },
+                "footer": "Demandé par "
+            },
+            "back": {
+                "queueEmpty": "La file de musique du serveur est vide !",
+                "notInVoice": "Vous n'êtes pas dans un salon vocal !",
+                "notInSameVoice": "Vous n'êtes pas dans le même salon vocal que moi !",
+                "trackBack": "Retour en arrière d'une musique !"
+            },
+            "clear": {
+                "queueEmpty": "La file de musique du serveur est vide !",
+                "notInVoice": "Vous n'êtes pas dans un salon vocal !",
+                "notInSameVoice": "Vous n'êtes pas dans le même salon vocal que moi !",
+                "queueClear": "File effacé !"
+            },
+            "disconnect": {
+                "notInVoice": "Je ne suis pas dans un salon vocal !",
+                "disconnected": "Deconnection effectué !"
+            },
+            "jump": {
+                "queueEmpty": "La file de musique du serveur est vide !",
+                "notInVoice": "Vous n'êtes pas dans un salon vocal !",
+                "notInSameVoice": "Vous n'êtes pas dans le même salon vocal que moi !",
+                "jump": "Saut jusqu'à la musique n°"
+            },
+            "lyrics": {
+                "queueEmpty": "La file de musique su serveur est vide !",
+                "lyricsNotFound": "Les paroles de cette musique n'ont pas été trouvés !",
+                "author": "Paroles"
+            },
+            "nowplaying": {
+                "title": "Musique joué en ce moment dans ",
+                "fields": {
+                    "1": "Auteur",
+                    "2": "Durée",
+                    "3": "Url"
+                },
+                "footer": "Demandé par "
+            },
+            "pause": {
+                "queueEmpty": "La file de musique du serveur est vide !",
+                "notInVoice": "Vous n'êtes pas dans un salon vocal !",
+                "notInSameVoice": "Vous n'êtes pas dans le même salon vocal que moi !",
+                "pause": "Lecture de la file reprise !",
+                "resume": "File mise en pause !"
+            },
+            "play": {
+                "notInVoice": "Vous n'êtes pas dans un salon vocal !",
+                "notInSameVoice": "Vous n'êtes pas dans le même salon vocal que moi !",
+                "noArgs0": "Dites moi quelle musique vous voulez que je joue !",
+                "noPermissionToJoin": "Je n'ai pas less permissions de rejoindre votre salon !",
+                "musicNotFound": {
+                    "1": "❌ | La Musique \"**",
+                    "2": "**\" n'a pas pu être trouvé !"
+                }
+            },
+            "queue": {
+                "queueEmpty": "La file de musique du serveur est vide !",
+                "title": "Liste des musiques",
+                "footer": "Durée de la file: wip"
+            },
+            "settings": {
+                "settingsNotFounds": "Pour une raison inconnue, les paramètres de votre serveur n'ont pas été initialisés, attendez quelques secondes que je règle ça et retentez après...",
+                "embed": {
+                    "title": "Paramètres du serveur ",
+                    "desc": {
+                        "1": "Pour modifier un des paramètres, faites la commande:",
+                        "2": "\n`;settings {id du paramètre} {nouvelle valeur du paramètre}`",
+                        "3": "\n*(l'id du paramètre est entre parenthèses à coté du nom)*"
+                    },
+                    "fields": {
+                        "1": "**Langue par défault (lang):**",
+                        "2": "**Préfix (prefix):**",
+                        "3": "**Commandes désactivés (disabledCmds):**"
+                    },
+                    "footer": "Demandé par ",
+                    "lang": {
+                        "langUndefined": "Désolé mais cette langue n'est pas disponible.",
+                        "langNotTranslate": "Désolé mais cette langue n'est pas complétement traduite (progression: ",
+                        "langChange": "La langue par défault du serveur a bien été changé en "
+                    },
+                    "prefixChnage": "Le préfix du serveur a bien été changé en ",
+                    "disabledCmds": {
+                        "canNotDisable": "Vous ne pouvez pas désactivé cette commande !",
+                        "cmdDisable": {
+                            "1": "La commande `",
+                            "2": "` a bien été désativé sur ce serveur !"
+                        },
+                        "cmdEnable": {
+                            "1": "La commande `",
+                            "2": "` a bien été activé sur ce serveur !"
+                        }
+                    }
+                }
+            },
+            "shuffle": {
+                "queueEmpty": "La file de musique du serveur est vide !",
+                "notInVoice": "Vous n'êtes pas dans un salon vocal !",
+                "notInSameVoice": "Vous n'êtes pas dans le même salon vocal que moi !",
+                "shuffle": "File mélangé !"
+            },
+            "skip": {
+                "queueEmpty": "La file de musique du serveur est vide !",
+                "notInVoice": "Vous n'êtes pas dans un salon vocal !",
+                "notInSameVoice": "Vous n'êtes pas dans le même salon vocal que moi !",
+                "skip": "Saut jusqu'à la prochaine musique !"
+            },
+            "test": {},
+            "help": {
+                "helpEmbed": {
+                    "desc": {
+                        "1": "Description:",
+                        "2": "Usage(s):",
+                        "3": "Aliases:",
+                        "4": "Permission requise:"
+                    },
+                    "footer": "Aide demandé par "
+                },
+                "noCmds": "Vous n'avez accès à aucune commande.",
+                "title": "Voici la liste des commandes:",
+                "footer": "Aide demandé par",
+                "commands": {
+                    "help":  {
+                        "description": "Affiche les différentes commandes du bot."
+                    },
+                    "ping": {
+                        "description": "Affiche la latence du bot."
+                    },
+                    "test": {
+                        "description": "Mystère et boule de gomme, puis bim j'te dégomme !"
+                    }
+                },
+                "groups": {
+                    "dev": "Commandes de développement.",
+                    "others": "Commandes diverses."
+                }
+            }
+        }
+    },
+
+    "es": {
+        "percentage": "0%",
+        "content": {}
+    },
+
+    "de": {
+        "percentage": "0%",
+        "content": {}
+    }
+
+}
