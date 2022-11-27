@@ -1,9 +1,0 @@
-node_modules
-logs
-old
-package-lock.json
-.env
-.gitignore
-.gitattributes
-nekosama.png
-database.json
