@@ -44,9 +44,17 @@
                 "footer": "Requested by"
             },
             "back": {},
-            "clear": {},
-            "disconnect": {},
-            "jump": {},
+            "clear": {
+                "queueEmpty": "The music queue is empty !",
+                "notInVoice": "You're not in a voice channel !",
+                "notInSameVoice": "You're not in the same voice channel as me !",
+                "queueClear": "The queue has been cleared !"
+            },
+            "leave": {
+                "notInVoice": "You're not in a voice channel !",
+                "notInSameVoice": "You're not in the same voice channel as me !",
+                "leave": "I left the voice channel !"
+            },
             "lyrics": {},
             "nowplaying": {},
             "pause": {
