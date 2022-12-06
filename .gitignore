@@ -2,6 +2,7 @@ node_modules
 logs
 old
 src/api
+src/api/*
 package-lock.json
 .env
 .gitattributes
