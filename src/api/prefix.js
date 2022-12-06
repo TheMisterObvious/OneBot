@@ -5,6 +5,7 @@ exports.router = (client, express) => {
         const { guildId, prefix } = req.params
 
         console.log(guildId, prefix)
+        //Abracadabra
     })
 
     return router
