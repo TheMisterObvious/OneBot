@@ -1,6 +1,7 @@
 node_modules
 logs
 old
+web
 src/api
 src/api/*
 package-lock.json

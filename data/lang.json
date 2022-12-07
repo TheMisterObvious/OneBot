@@ -176,20 +176,41 @@
                             }
                         }
                     },
+                    "clear": {
+                        "description": "Clear the music queue."
+                    },
+                    "leave": {
+                        "description": "Make the bot leave the voice channel."
+                    },
+                    "lyrics": {
+                        "description": "Show the lyrics of the current song."
+                    },
+                    "nowplaying": {
+                        "description": "Show the current song."
+                    },
+                    "pause": {
+                        "description": "Pause the music queue."
+                    },
+                    "play": {
+                        "description": "Play a song or playlist."
+                    },
                     "ping": {
                         "description": "Show the bot lantecy."
                     },
                     "passcheck": {
                         "description": "Hmmm, interesting, what's that ?."
                     },
-                    "test": {
-                        "description": "Big, flappy, messy mystery."
-                    },
-                    "play": {
-                        "description": "Play a song or playlist."
+                    "queue": {
+                        "description": "Show the music queue."
                     },
                     "repeat": {
                         "description": "Repeat the current song of the queue."
+                    },
+                    "skip": {
+                        "description": "Skip the current song."
+                    },
+                    "test": {
+                        "description": "Big, flappy, messy mystery."
                     }
                 },
                 "titleGroup": "Group",

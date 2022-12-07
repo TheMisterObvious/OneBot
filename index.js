@@ -17,13 +17,10 @@ require('dotenv').config()
 // const Data = require("kf-database");
 // client.db = new Data({ name: "Database" });
 
-client.db = new JsonDB(new Config("database", false, false, "/"))
+client.db = new JsonDB(new Config("database", true, true, "/"))
 
 try { client.db.getData("/server") } 
-catch { 
-    client.db.push("/", { "server" : {}, "user": {}})
-    client.db.save()   
-}
+catch { client.db.push("/", { "server" : {}, "user": {}}) }
 
 const fs = require("fs")
 const { Player } = require("discord-music-player")

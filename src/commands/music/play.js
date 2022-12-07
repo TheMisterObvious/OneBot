@@ -1,4 +1,4 @@
-exports.run = async(client, message, args) => {
+exports.run = async (client, message, args) => {
 
     const guildId = message.guild.id
     const lang = client.db.getData(`/user/${message.author.id}/lang`)
