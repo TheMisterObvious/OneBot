@@ -4,7 +4,7 @@
   "engines": {
     "node": "16.x"
   },
-  "description": "The official discord bot code for the Kharoh Families game and discord server.",
+  "description": "A random discord bot.",
   "main": "index.js",
   "dependencies": {
     "anime-vostfr": "^1.2.3",
